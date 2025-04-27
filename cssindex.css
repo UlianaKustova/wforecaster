@@ -11,8 +11,8 @@ h2 {
 
 .border-item {
     width: 550px;
-    height: 550px;
-    padding: 20px 30px 10px;
+    min-height: 550px;
+    padding: 20px 30px 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0,0,0,0.2);
     background-color: rgba(18, 32, 38, 0.5);
     margin: auto;
@@ -94,7 +94,7 @@ h2 {
 p {
     /* font-size: 180%; */
     padding: 10px 0 10px 0;
-    font-size: 40px;
+    font-size: 30px;
     color: #ffffff;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -118,7 +118,7 @@ p1 {
 header {
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 7%;
+    padding: 2%;
     text-align: center;
     font-size: 40px;
 }
@@ -218,43 +218,141 @@ footer {
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
-    border: none;
+    padding: 12px;
+    border: 1px solid rgba(113, 145, 249, 0.3);
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    background-color: rgba(18, 32, 38, 0.5);
+    color: white;
     font-family: Arial, sans-serif;
-}
-
-.form-group textarea {
-    height: 100px;
-    resize: vertical;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: rgba(113, 145, 249, 0.7);
+    box-shadow: 0 0 8px rgba(113, 145, 249, 0.3);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
 .submit-btn {
-    background-color: #7191f9;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
+    background-color: rgba(113, 145, 249, 0.3);
+    color: white;
+    border: 1px solid rgba(113, 145, 249, 0.5);
+    padding: 12px 24px;
     border-radius: 4px;
-    cursor: pointer;
     font-family: Arial, sans-serif;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
 .submit-btn:hover {
-    background-color: #5a73c7;
+    background-color: rgba(113, 145, 249, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.contact-form {
+    background-color: rgba(18, 32, 38, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form h3 {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#cityInput {
+    width: 550px;
+    height: 50px;
+    padding: 12px 20px;
+    border: 1px solid rgba(113, 145, 249, 0.3);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: rgba(18, 32, 38, 0.5);
+    border-radius: 4px;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cityInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#cityInput:focus {
+    outline: none;
+    border-color: rgba(113, 145, 249, 0.7);
+    box-shadow: 0 0 8px rgba(113, 145, 249, 0.3);
+}
+
+#searchButton {
+    background-color: rgba(113, 145, 249, 0.5);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 95px;
+    height: 75px;
+    text-align: center;
+    line-height: normal;
+}
+
+#searchButton:hover {
+    background-color: rgba(113, 145, 249, 0.7);
+    transform: translateY(-2px);
+}
+
+#searchButton:active {
+    transform: translateY(0);
+}
+
+.search-container {
+    text-align: center;
+    margin: 20px auto 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    /* max-width: 500px; */
 }
 
 .hourly-btn {
     margin-top: 20px;
     padding: 12px 25px;
-    background-color: rgba(18, 32, 38, 0.541);
+    /* background-color: rgba(18, 32, 38, 0.541); */
+    background-color: rgba(113, 145, 249, 0.7);
     border: none;
     color: white;
     border-radius: 8px;

@@ -119,6 +119,8 @@ const getForecast = async () => {
                 const data = json.properties.timeseries[hour].data.instant.details;
                 document.getElementById(`temperature_${hour}`).innerHTML = JSON.stringify(json.properties.timeseries[hour].data.instant.details.air_temperature);
                 document.getElementById(`cloud_area_fraction_${hour}`).innerHTML = JSON.stringify(data.cloud_area_fraction);
+                // ttt = JSON.stringify(json.properties.timeseries[hour].data.instant.details.cloud_area_fraction);
+                // console.log(ttt);
                 document.getElementById(`wind_speed_${hour}`).innerHTML = JSON.stringify(data.wind_speed);
                 document.getElementById(`relative_humidity_${hour}`).innerHTML = JSON.stringify(data.relative_humidity);
 

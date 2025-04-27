@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="cssindex.css">
+    <script src="indexscript.js"></script>
     <title>WForecaster</title>
     
     <section>
@@ -11,106 +12,24 @@
                 <li><a href="wforecaster.html">WForecaster</a></li>
                 <li><a class="a1" href="newspaper.html">Weather news</a></li>
                 <li><a class="a1" href="https://frost.met.no/index.html">For devs</a></li>
+                <!-- <input
+                    type="text"
+                    id="name1"/> -->
+                <!-- <input> -->
             </nav>
     </section>
+</head>
+<body>
+    <div class="search-container">
+    <input type="text" id="cityInput" placeholder="Enter city">
+    <button id="searchButton">Search</button>
+    </div>
     <header>
         <h2>Actual forecast</h2>
     </header>
-</head>
-<body>
-    <script>
-        const getForecast = async () => {
-        try {
-            //txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=" + lat + "&lon=" + lon;
-            txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
-            response = await fetch(txt,
-            //await говорит о том что данная функция будет выполнятся асинхронно и не будет блокировать выполнение другого кода приложения
-            //fetch функция получения данных по api
-                {
-                    method: 'GET', // получаем данные 
-                    headers: {
-                        'Accept': '*/*', // указываем что принимаем все типы 
-                        'User-Agent': 'MyTestApp/0.2' // кто запрашивает
-                    }
-                }
-            );
-
-            if (response.ok) { // если HTTP-статус в диапазоне 200-299
-                json = await response.json();//представляем ответ в виде json
-                console.log("json here");
-                let num = 0;
-                ttt = JSON.stringify(json.properties.timeseries[num].data.instant.details.air_temperature);
-                cloud_area_fraction = JSON.stringify(json.properties.timeseries[num].data.instant.details.cloud_area_fraction);
-                wind_speed = JSON.stringify(json.properties.timeseries[num].data.instant.details.wind_speed);
-                relative_humidity = JSON.stringify(json.properties.timeseries[num].data.instant.details.relative_humidity);
-
-                let temperatureElement = document.getElementById('temperature');
-                let cloud_area_fractionElement = document.getElementById('cloud_area_fraction');
-                let wind_speedElement = document.getElementById('wind_speed');
-                let relative_humidityElement = document.getElementById('relative_humidity');
-
-                temperatureElement.innerHTML = ttt;
-                cloud_area_fractionElement.innerHTML = cloud_area_fraction;
-                wind_speedElement.innerHTML = wind_speed;
-                relative_humidityElement.innerHTML = relative_humidity;
-
-
-                // cloud_area_fraction = 22;
-                // ttt = -1;
-
-                if (cloud_area_fraction < 20) {
-                    document.body.style.background = "url('img1/backgr20.jpg')";
-                    document.body.style.backgroundSize = "auto 160%";
-                    var SunImg = document.getElementById("SunImg");
-                    SunImg.src = "img1/climacons-master/SVG/Sun.svg";
-                    SunImg.style.width = "100px";
-                    SunImg.style.height = "100px";
-                }
-                if (cloud_area_fraction > 20 && cloud_area_fraction < 50) {
-                    document.body.style.background = "url('img1/backgr20_50.jpg')";
-                    document.body.style.backgroundSize = "auto 120%";
-
-                    var CloudSunImg = document.getElementById("CloudSunImg");
-                    CloudSunImg.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-                    CloudSunImg.style.width = "100px";
-                    CloudSunImg.style.height = "100px";
-                }
-                if (cloud_area_fraction > 50 && cloud_area_fraction < 80) {
-                    document.body.style.background = "url('img1/backgr50_80.jpg')";
-                    document.body.style.backgroundSize = "auto 120%";
-
-                    var CloudImg = document.getElementById("CloudImg");
-                    CloudImg.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-                    CloudImg.style.width = "100px";
-                    CloudImg.style.height = "100px";
-                }
-                if (cloud_area_fraction > 80 ) {
-                    document.body.style.background = "url('img1/backgr801.jpg')";
-                    document.body.style.backgroundSize = "auto 160%";
-
-                    var CloudSunImg = document.getElementById("CloudSunImg");
-                    CloudSunImg.src = "img1/climacons-master/SVG/Cloud.svg";
-                    CloudSunImg.style.width = "100px";
-                    CloudSunImg.style.height = "100px";
-                }
-                document.body.style.backgroundRepeat = "no-repeat";
-                document.body.style.backgroundAttachment = "fixed";
-
-                // document.body.style.backgroundSize = "contain";
-            } 
-            else {
-                console.log("some err"); //TODO сделать адекватное сообщение об ошибке
-            }
-        } 
-        catch (error) {
-            console.error(error);
-        } 
-    }
-
-    getForecast();
-    </script>
     <div class="border-item">
-            <p>Nizhny Novgorod</p>
+            <!-- <p>Nizhny Novgorod</p> -->
+            <p id="locationResult">Nizhny Novgorod</p>
         <div class="main-weather">
             <div class="main-temp-container">
                 <div id="temperature" class="main-temp"></div>
@@ -119,11 +38,12 @@
         </div>
         <div class="weather-details">
             <div class="weather-item">
-                <div class="weather-icon">
-                    <img id="SunImg">
+                 <div class="weather-icon">
+                    <!--<img id="SunImg">
                     <img id="CloudSunImg">
-                    <img id="CloudImg">
-                </div>
+                    <img id="CloudImg">-->
+                    <img id="WeatherIcon" style="width: 100px; height: 100px;">
+                </div> 
                 <div class="weather-info">
                     <span class="weather-label">Cloudiness</span>
                     <div id="cloud_area_fraction"></div>
@@ -158,10 +78,11 @@
         <div class="footer-content">
             <div class="developer-info">
                 <p class="dev-details">
-                    Dev: Uliana<br>
+                    Dev: Uliana and Ksyusha<br>
                     Project: WForecaster<br>
                     2025<br>
-                    <a href="https://github.com/UlianaKustova" class="social-link">GitHub</a>
+                    <a href="https://github.com/UlianaKustova/wforecaster" class="social-link">Uliana's GitHub</a><br>
+                    <a href="https://github.com/KssBerring" class="social-link">Ksyusha's GitHub</a>
                 </p>
             </div>
             <div class="contact-form">
