@@ -12,10 +12,6 @@
                 <li><a href="wforecaster.html">WForecaster</a></li>
                 <li><a class="a1" href="newspaper.html">Weather news</a></li>
                 <li><a class="a1" href="https://frost.met.no/index.html">For devs</a></li>
-                <!-- <input
-                    type="text"
-                    id="name1"/> -->
-                <!-- <input> -->
             </nav>
     </section>
 </head>
@@ -27,26 +23,24 @@
     <header>
         <h2>Actual forecast</h2>
     </header>
-    <div class="border-item">
-            <!-- <p>Nizhny Novgorod</p> -->
+    <div class="container">
+        <div class="border-item">
+            <p>OpenWeather</p>
             <p id="locationResult">Nizhny Novgorod</p>
         <div class="main-weather">
             <div class="main-temp-container">
-                <div id="temperature" class="main-temp"></div>
+                <div id="temperatureOpenWeather" class="main-temp"></div>
                 <span class="temp-unit">°C</span>
             </div>
         </div>
         <div class="weather-details">
             <div class="weather-item">
-                 <div class="weather-icon">
-                    <!--<img id="SunImg">
-                    <img id="CloudSunImg">
-                    <img id="CloudImg">-->
-                    <img id="WeatherIcon" style="width: 100px; height: 100px;">
+                <div class="weather-icon">
+                    <img id="WeatherIconOpenWeather" style="width: 90px; height: 90px;">
                 </div> 
                 <div class="weather-info">
                     <span class="weather-label">Cloudiness</span>
-                    <div id="cloud_area_fraction"></div>
+                    <div id="cloud_area_fractionOpenWeather"></div>
                     <span class="unit">%</span>
                 </div>
             </div>
@@ -56,7 +50,7 @@
                 </div>
                 <div class="weather-info">
                     <span class="weather-label">Wind speed</span>
-                    <div id="wind_speed"></div>
+                    <div id="wind_speedOpenWeather"></div>
                     <span class="unit">m/s</span>
                 </div>
             </div>
@@ -66,13 +60,110 @@
                 </div>
                 <div class="weather-info">
                     <span class="weather-label">Humidity</span>
-                    <div id="relative_humidity"></div>
+                    <div id="relative_humidityOpenWeather"></div>
                     <span class="unit">%</span>
                 </div>
             </div>
         </div>
-        <a href="fun.html" class="hourly-btn">Hourly forecast</a>
     </div>
+
+
+
+    <div class="border-item">
+        <p>YR.NO</p>
+        <p id="locationResult">Nizhny Novgorod</p>
+    <div class="main-weather">
+        <div class="main-temp-container">
+            <div id="temperatureYRNO" class="main-temp"></div>
+            <span class="temp-unit">°C</span>
+        </div>
+    </div>
+    <div class="weather-details">
+        <div class="weather-item">
+            <div class="weather-icon">
+                <img id="WeatherIconYRNO" style="width: 90px; height: 90px;">
+            </div> 
+            <div class="weather-info">
+                <span class="weather-label">Cloudiness</span>
+                <div id="cloud_area_fractionYRNO"></div>
+                <span class="unit">%</span>
+            </div>
+        </div>
+        <div class="weather-item">
+            <div class="weather-icon">
+                <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
+            </div>
+            <div class="weather-info">
+                <span class="weather-label">Wind speed</span>
+                <div id="wind_speedYRNO"></div>
+                <span class="unit">m/s</span>
+            </div>
+        </div>
+        <div class="weather-item">
+            <div class="weather-icon">
+                <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
+            </div>
+            <div class="weather-info">
+                <span class="weather-label">Humidity</span>
+                <div id="relative_humidityYRNO"></div>
+                <span class="unit">%</span>
+            </div>
+        </div>
+    </div>
+    <!-- <a href="fun.html" class="hourly-btn">Hourly forecast</a> -->
+</div>
+
+
+
+
+    <div class="border-item">
+        <p>Weather by API-Ninjas</p>
+        <p id="locationResult">Nizhny Novgorod</p>
+    <div class="main-weather">
+        <div class="main-temp-container">
+            <div id="temperatureNinjas" class="main-temp"></div>
+            <span class="temp-unit">°C</span>
+        </div>
+    </div>
+    <div class="weather-details">
+        <div class="weather-item">
+            <div class="weather-icon">
+                <img id="WeatherIconNinjas" style="width: 90px; height: 90px;">
+            </div> 
+            <div class="weather-info">
+                <span class="weather-label">Cloudiness</span>
+                <div id="cloud_area_fractionNinjas"></div>
+                <span class="unit">%</span>
+            </div>
+        </div>
+        <div class="weather-item">
+            <div class="weather-icon">
+                <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
+            </div>
+            <div class="weather-info">
+                <span class="weather-label">Wind speed</span>
+                <div id="wind_speedNinjas"></div>
+                <span class="unit">m/s</span>
+            </div>
+        </div>
+        <div class="weather-item">
+            <div class="weather-icon">
+                <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
+            </div>
+            <div class="weather-info">
+                <span class="weather-label">Humidity</span>
+                <div id="relative_humidityNinjas"></div>
+                <span class="unit">%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+
+
 
     <footer>
         <div class="footer-content">
