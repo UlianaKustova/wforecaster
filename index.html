@@ -11,7 +11,7 @@
             <nav>
                 <li><a href="wforecaster.html">WForecaster</a></li>
                 <li><a class="a1" href="newspaper.html">Weather news</a></li>
-                <li><a class="a1" href="https://frost.met.no/index.html">For devs</a></li>
+                <li><a class="a1" href="https://api.met.no/weatherapi/locationforecast/2.0/documentation">For devs</a></li>
             </nav>
     </section>
 </head>
@@ -26,7 +26,7 @@
     <div class="container">
         <div class="border-item">
             <p>OpenWeather</p>
-            <p id="locationResult">Nizhny Novgorod</p>
+            <p id="locationResultOpenWeather">Nizhny Novgorod</p>
         <div class="main-weather">
             <div class="main-temp-container">
                 <div id="temperatureOpenWeather" class="main-temp"></div>
@@ -65,13 +65,14 @@
                 </div>
             </div>
         </div>
+        <a class="hourly-btn">See more API details</a>
     </div>
 
 
 
     <div class="border-item">
         <p>YR.NO</p>
-        <p id="locationResult">Nizhny Novgorod</p>
+        <p id="locationResultYRNO">Nizhny Novgorod</p>
     <div class="main-weather">
         <div class="main-temp-container">
             <div id="temperatureYRNO" class="main-temp"></div>
@@ -110,15 +111,22 @@
             </div>
         </div>
     </div>
-    <!-- <a href="fun.html" class="hourly-btn">Hourly forecast</a> -->
+    <!-- <a class="hourly-btn">See more API details</a> -->
+    <label for="css-modal-checkbox" class="css-modal-checkbox">See more details</label>
 </div>
-
+<input type="checkbox" id="css-modal-checkbox"/>
+<div class="cmc">
+    <div class="cmt">
+        <p>Ebani web</p>
+    </div>
+    <label for="css-modal-checkbox" class="css-modal-close"></label>
+</div>
 
 
 
     <div class="border-item">
         <p>Weather by API-Ninjas</p>
-        <p id="locationResult">Nizhny Novgorod</p>
+        <p id="locationResultNinjas">Nizhny Novgorod</p>
     <div class="main-weather">
         <div class="main-temp-container">
             <div id="temperatureNinjas" class="main-temp"></div>
@@ -157,13 +165,9 @@
             </div>
         </div>
     </div>
+    <a class="hourly-btn">See more API details</a>
 </div>
-
-
-
 </div>
-
-
 
     <footer>
         <div class="footer-content">
@@ -171,9 +175,10 @@
                 <p class="dev-details">
                     Dev: Uliana and Ksyusha<br>
                     Project: WForecaster<br>
-                    2025<br>
                     <a href="https://github.com/UlianaKustova/wforecaster" class="social-link">Uliana's GitHub</a><br>
-                    <a href="https://github.com/KssBerring" class="social-link">Ksyusha's GitHub</a>
+                    <a href="https://github.com/KssBerring" class="social-link">Ksyusha's GitHub</a><br>
+                    Data Source: YR.NO & Weather by API-Ninjas & OpenWeather<br>
+                    2025<br>
                 </p>
             </div>
             <div class="contact-form">

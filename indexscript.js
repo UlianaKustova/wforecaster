@@ -29,11 +29,9 @@ const getLocation = async () => {
         console.log(setlocationText);
         console.log(lat);
         console.log(lon);
-        // document.getElementById('locationResult').textContent = setlocationText;
-        const elements = document.querySelectorAll('.locationResult');
-        elements.forEach(function(element) {
-            element.textContent = setlocationText;
-        });
+        document.getElementById('locationResultYRNO').textContent = setlocationText;
+        document.getElementById('locationResultOpenWeather').textContent = setlocationText;
+        document.getElementById('locationResultNinjas').textContent = setlocationText;
 
       } else {
         console.log("some err in city"); //todo сообщить об ошибке
@@ -60,18 +58,51 @@ const getForecast = async () => {
             txtOpenWeather = "https://openweather43.p.rapidapi.com/weather?appid=da0f9c8d90bde7e619c3ec47766a42f4&q=" + town1 + "&units=standard";
             txtNinjas = "https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?lat=" + lat + "&lon=" + lon;;
         }
+    //-----------------------------------------пример для сайта
+    //     try {
+    //         txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
+    //         response = await fetch(txt,
+    //         {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Accept': '*/*',
+    //                 'User-Agent': 'your_project'
+    //             }
+    //         }
+    //     );
+    //     responseYRNO = await fetch(txtYRNO,
+    //         {
+    //             method: 'GET', // получаем данные 
+    //             headers: {
+    //                 'Accept': '*/*', // указываем что принимаем все типы 
+    //                 'User-Agent': 'MyTestApp/0.2' // кто запрашивает
+    //             }
+    //         }
+    //     );
+    //     if (response.ok) {
+    //         json = await response.json();
 
-        responseYRNO = await fetch(txtYRNO,
-        //await говорит о том что данная функция будет выполнятся асинхронно и не будет блокировать выполнение другого кода приложения
-        //fetch функция получения данных по api
-            {
-                method: 'GET', // получаем данные 
-                headers: {
-                    'Accept': '*/*', // указываем что принимаем все типы 
-                    'User-Agent': 'MyTestApp/0.2' // кто запрашивает
-                }
-            }
-        );
+    //     }
+    //     else {
+    //         console.log("some err YRNO"); //TODO сделать адекватное сообщение об ошибке
+    //     }
+    // }
+    //     catch (error) {
+    //     console.error(error);
+    // }
+        //-------------------------------------------------конец примера
+
+        // responseNinjas = await fetch(txtNinjas,
+        //         {
+        //             method: 'GET',
+        //             headers: {
+        //                 'Accept': '*/*',
+        //                 'User-Agent': 'MyTestApp/0.2',
+        //                 'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
+        //                 'x-rapidapi-host': 'weather-by-api-ninjas.p.rapidapi.com'
+        //             }
+        //         }
+        //     );
 
         // responseOpenWeather = await fetch(txtOpenWeather,
         //         {
@@ -84,23 +115,11 @@ const getForecast = async () => {
         //             }
         //         }
         //     );
-        
-        responseNinjas = await fetch(txtNinjas,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Accept': '*/*',
-                        'User-Agent': 'MyTestApp/0.2',
-                        'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
-                        'x-rapidapi-host': 'weather-by-api-ninjas.p.rapidapi.com'
-                    }
-                }
-            );
 
 
         if (responseYRNO.ok) { // если HTTP-статус в диапазоне 200-299
             json = await responseYRNO.json();//представляем ответ в виде json
-            console.log("json here");
+            console.log("json here YRNO");
             let num = 0;
             tttYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.air_temperature);
             cloud_area_fractionYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.cloud_area_fraction);
@@ -147,13 +166,52 @@ const getForecast = async () => {
 
         } 
         else {
-            console.log("some err"); //TODO сделать адекватное сообщение об ошибке
+            console.log("some err YRNO"); //TODO сделать адекватное сообщение об ошибке
         }
+
+
+
+        // if (responseNinjas.ok) { // если HTTP-статус в диапазоне 200-299
+        //     json = await responseNinjas.json();//представляем ответ в виде json
+        //     console.log("json here Ninjas");
+        //     tttNinjas = JSON.stringify(json.temp);
+        //     cloud_area_fractionNinjas = JSON.stringify(json.cloud_pct);
+        //     wind_speedNinjas = JSON.stringify(json.wind_speed);
+        //     relative_humidityNinjas = JSON.stringify(json.humidity);
+        //     let temperatureElementNinjas = document.getElementById('temperatureNinjas');
+        //     let cloud_area_fractionElementNinjas = document.getElementById('cloud_area_fractionNinjas');
+        //     let wind_speedElementNinjas = document.getElementById('wind_speedNinjas');
+        //     let relative_humidityElementNinjas = document.getElementById('relative_humidityNinjas');
+
+        //     temperatureElementNinjas.innerHTML = tttNinjas;
+        //     cloud_area_fractionElementNinjas.innerHTML = cloud_area_fractionNinjas;
+        //     wind_speedElementNinjas.innerHTML = wind_speedNinjas;
+        //     relative_humidityElementNinjas.innerHTML = relative_humidityNinjas;
+
+        //     var weatherIconNinjas = document.getElementById("WeatherIconNinjas");
+
+        //     if (cloud_area_fractionNinjas < 20) {
+        //         weatherIconNinjas.src = "img1/climacons-master/SVG/Sun.svg";
+        //     }
+        //     if (cloud_area_fractionNinjas > 20 && cloud_area_fractionNinjas < 50) {
+        //         weatherIconNinjas.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
+        //     }
+        //     if (cloud_area_fractionNinjas > 50 && cloud_area_fractionNinjas < 80) {
+        //         weatherIconNinjas.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
+        //     }
+        //     if (cloud_area_fractionNinjas > 80 ) {
+        //         weatherIconNinjas.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
+        //     }
+
+        // } 
+        // else {
+        //     throw new Error(`HTTP error Ninjas! Status: ${responseNinjas.status}`);
+        // }
 
 
         // if (responseOpenWeather.ok) {
         //     json = await responseOpenWeather.json();
-        //     console.log("json here1");
+        //     console.log("json here OpenWeather");
         //     tttOpenWeather = JSON.stringify(json.main.temp);
         //     cloud_area_fractionOpenWeather = JSON.stringify(json.clouds.all);
         //     wind_speedOpenWeather = JSON.stringify(json.wind.speed);
@@ -186,47 +244,9 @@ const getForecast = async () => {
         //     }
         // } 
         // else {
-        //     console.log("some err");
-        //     throw new Error(`HTTP error! Status: ${response.status}`);
+        //     throw new Error(`HTTP error OpenWeather! Status: ${responseOpenWeather.status}`);
+        //     // document.getElementById('locationResultOpenWeather').textContent = "Sorry, the forecast is currently unavailable, the number of requests in the free version has been exceeded";
         // }
-
-        if (responseNinjas.ok) { // если HTTP-статус в диапазоне 200-299
-            json = await responseNinjas.json();//представляем ответ в виде json
-            console.log("json here2");
-            tttNinjas = JSON.stringify(json.temp);
-            cloud_area_fractionNinjas = JSON.stringify(json.cloud_pct);
-            wind_speedNinjas = JSON.stringify(json.wind_speed);
-            relative_humidityNinjas = JSON.stringify(json.humidity);
-            let temperatureElementNinjas = document.getElementById('temperatureNinjas');
-            let cloud_area_fractionElementNinjas = document.getElementById('cloud_area_fractionNinjas');
-            let wind_speedElementNinjas = document.getElementById('wind_speedNinjas');
-            let relative_humidityElementNinjas = document.getElementById('relative_humidityNinjas');
-
-            temperatureElementNinjas.innerHTML = tttNinjas;
-            cloud_area_fractionElementNinjas.innerHTML = cloud_area_fractionNinjas;
-            wind_speedElementNinjas.innerHTML = wind_speedNinjas;
-            relative_humidityElementNinjas.innerHTML = relative_humidityNinjas;
-
-            var weatherIconNinjas = document.getElementById("WeatherIconNinjas");
-
-            if (cloud_area_fractionNinjas < 20) {
-                weatherIconNinjas.src = "img1/climacons-master/SVG/Sun.svg";
-            }
-            if (cloud_area_fractionNinjas > 20 && cloud_area_fractionNinjas < 50) {
-                weatherIconNinjas.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-            }
-            if (cloud_area_fractionNinjas > 50 && cloud_area_fractionNinjas < 80) {
-                weatherIconNinjas.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-            }
-            if (cloud_area_fractionNinjas > 80 ) {
-                weatherIconNinjas.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-            }
-
-        } 
-        else {
-            console.log("some err"); //TODO сделать адекватное сообщение об ошибке
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
 
     } 
     catch (error) {
