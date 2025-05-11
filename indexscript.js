@@ -101,10 +101,41 @@ const getForecast = async () => {
         //             'Accept': '*/*',
         //             'User-Agent': 'MyTestApp/0.2',
         //             'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
-		//             'x-rapidapi-host': 'openweather43.p.rapidapi.com'
+        //             'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
         //             }
         //         }
         //     );
+        responseNinjas = await fetch(txtNinjas,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Accept': '*/*',
+                        'User-Agent': 'MyTestApp/0.2',
+                        'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
+                        'x-rapidapi-host': 'weather-by-api-ninjas.p.rapidapi.com'
+                    }
+                }
+            );
+            responseYRNO = await fetch(txtYRNO,
+                        {
+                            method: 'GET', // получаем данные 
+                            headers: {
+                                'Accept': '*/*', // указываем что принимаем все типы 
+                                'User-Agent': 'MyTestApp/0.2' // кто запрашивает
+                            }
+                        }
+                    );
+        responseOpenWeather = await fetch(txtOpenWeather,
+                {
+                method: 'GET',
+                headers: {
+                    'Accept': '*/*',
+                    'User-Agent': 'MyTestApp/0.2',
+                    'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
+		            'x-rapidapi-host': 'openweather43.p.rapidapi.com'
+                    }
+                }
+            );
 
 
         if (responseYRNO.ok && responseSun) { // если HTTP-статус в диапазоне 200-299
