@@ -5,184 +5,226 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="cssindex.css">
     <script src="indexscript.js"></script>
+    <!-- Добавляем Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>WForecaster</title>
     
-    <section>
-            <nav>
-                <li><a class="a1" href="wforecaster.html">WForecaster</a></li>
-                <li><a href="newspaper.html">Weather news</a></li>
-                <li><a href="https://api.met.no/weatherapi/locationforecast/2.0/documentation">For devs</a></li>
-            </nav>
-    </section>
+    <style>
+        /* Стили для навигации с иконками */
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            color: #ffffff;
+            font-size: 20px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        nav a.a1 {
+            font-size: 30px;
+        }
+
+        nav a:hover {
+            transform: translateY(-2px);
+        }
+
+        
+    </style>
 </head>
 <body>
+    <section>
+        <nav>
+            <ul>
+                <li><a class="a1" href="wforecaster.html"><i class="fas fa-cloud-sun-rain"></i> WForecaster</a></li>
+                <li><a href="newspaper.html"><i class="fas fa-newspaper"></i> Weather news</a></li>
+                <li><a href="https://api.met.no/weatherapi/locationforecast/2.0/documentation"><i class="fas fa-code"></i> For devs</a></li>
+            </ul>
+        </nav>
+    </section>
+
     <div class="search-container">
-    <input type="text" id="cityInput" placeholder="Enter city">
-    <button id="searchButton">Search</button>
+        <input type="text" id="cityInput" placeholder="Enter city name...">
+        <button id="searchButton"><i class="fas fa-search"></i> Search</button>
     </div>
+
     <header>
-        <h2>Actual forecast</h2>
+        <h2><i class="fas fa-cloud-sun"></i> Actual forecast</h2>
     </header>
+
     <div class="container">
         <div class="border-item">
-            <p>OpenWeather</p>
-            <p id="locationResultOpenWeather">Nizhny Novgorod</p>
-        <div class="main-weather">
-            <div class="main-temp-container">
-                <div id="temperatureOpenWeather" class="main-temp"></div>
-                <span class="temp-unit">°C</span>
-            </div>
-        </div>
-        <div class="weather-details">
-            <div class="weather-item">
-                <div class="weather-icon">
-                    <img id="WeatherIconOpenWeather" style="width: 90px; height: 90px;">
-                </div> 
-                <div class="weather-info">
-                    <span class="weather-label">Cloudiness</span>
-                    <div id="cloud_area_fractionOpenWeather"></div>
-                    <span class="unit">%</span>
+            <p><i class="fas fa-sun"></i> OpenWeather</p>
+            <p id="locationResultOpenWeather"><i class="fas fa-map-marker-alt"></i> Nizhny Novgorod</p>
+            <div class="main-weather">
+                <div class="main-temp-container">
+                    <div id="temperatureOpenWeather" class="main-temp"></div>
+                    <span class="temp-unit">°C</span>
                 </div>
             </div>
-            <div class="weather-item">
-                <div class="weather-icon">
-                    <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
+            <div class="weather-details">
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img id="WeatherIconOpenWeather" style="width: 90px; height: 90px;">
+                    </div> 
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-cloud"></i> Cloudiness</span>
+                        <div id="cloud_area_fractionOpenWeather"></div>
+                        <span class="unit">%</span>
+                    </div>
                 </div>
-                <div class="weather-info">
-                    <span class="weather-label">Wind speed</span>
-                    <div id="wind_speedOpenWeather"></div>
-                    <span class="unit">m/s</span>
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-wind"></i> Wind speed</span>
+                        <div id="wind_speedOpenWeather"></div>
+                        <span class="unit">m/s</span>
+                    </div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-tint"></i> Humidity</span>
+                        <div id="relative_humidityOpenWeather"></div>
+                        <span class="unit">%</span>
+                    </div>
                 </div>
             </div>
-            <div class="weather-item">
-                <div class="weather-icon">
-                    <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
+            <a class="hourly-btn"><i class="fas fa-chart-line"></i> See more API details</a>
+        </div>
+
+        <div class="border-item">
+            <p><i class="fas fa-cloud-moon"></i> YR.NO</p>
+            <p id="locationResultYRNO"><i class="fas fa-map-marker-alt"></i> Nizhny Novgorod</p>
+            <div class="main-weather">
+                <div class="main-temp-container">
+                    <div id="temperatureYRNO" class="main-temp"></div>
+                    <span class="temp-unit">°C</span>
                 </div>
-                <div class="weather-info">
-                    <span class="weather-label">Humidity</span>
-                    <div id="relative_humidityOpenWeather"></div>
-                    <span class="unit">%</span>
+            </div>
+            <div class="weather-details">
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img id="WeatherIconYRNO" style="width: 90px; height: 90px;">
+                    </div> 
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-cloud"></i> Cloudiness</span>
+                        <div id="cloud_area_fractionYRNO"></div>
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-wind"></i> Wind speed</span>
+                        <div id="wind_speedYRNO"></div>
+                        <span class="unit">m/s</span>
+                    </div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-tint"></i> Humidity</span>
+                        <div id="relative_humidityYRNO"></div>
+                        <span class="unit">%</span>
+                    </div>
                 </div>
             </div>
+            <label for="css-modal-checkbox" class="css-modal-checkbox"><i class="fas fa-info-circle"></i> See more details</label>
         </div>
-        <a class="hourly-btn">See more API details</a>
+
+        <div class="border-item">
+            <p><i class="fas fa-bolt"></i> Weather by API-Ninjas</p>
+            <p id="locationResultNinjas"><i class="fas fa-map-marker-alt"></i> Nizhny Novgorod</p>
+            <div class="main-weather">
+                <div class="main-temp-container">
+                    <div id="temperatureNinjas" class="main-temp"></div>
+                    <span class="temp-unit">°C</span>
+                </div>
+            </div>
+            <div class="weather-details">
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img id="WeatherIconNinjas" style="width: 90px; height: 90px;">
+                    </div> 
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-cloud"></i> Cloudiness</span>
+                        <div id="cloud_area_fractionNinjas"></div>
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-wind"></i> Wind speed</span>
+                        <div id="wind_speedNinjas"></div>
+                        <span class="unit">m/s</span>
+                    </div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-icon">
+                        <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="weather-info">
+                        <span class="weather-label"><i class="fas fa-tint"></i> Humidity</span>
+                        <div id="relative_humidityNinjas"></div>
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+            </div>
+            <a class="hourly-btn"><i class="fas fa-chart-line"></i> See more API details</a>
+        </div>
     </div>
 
-
-
-    <div class="border-item">
-        <p>YR.NO</p>
-        <p id="locationResultYRNO">Nizhny Novgorod</p>
-    <div class="main-weather">
-        <div class="main-temp-container">
-            <div id="temperatureYRNO" class="main-temp"></div>
-            <span class="temp-unit">°C</span>
+    <input type="checkbox" id="css-modal-checkbox"/>
+    <div class="cmc">
+        <div class="cmt">
+            <p>Detailed weather information will be displayed here</p>
         </div>
+        <label for="css-modal-checkbox" class="css-modal-close"></label>
     </div>
-    <div class="weather-details">
-        <div class="weather-item">
-            <div class="weather-icon">
-                <img id="WeatherIconYRNO" style="width: 90px; height: 90px;">
-            </div> 
-            <div class="weather-info">
-                <span class="weather-label">Cloudiness</span>
-                <div id="cloud_area_fractionYRNO"></div>
-                <span class="unit">%</span>
-            </div>
-        </div>
-        <div class="weather-item">
-            <div class="weather-icon">
-                <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
-            </div>
-            <div class="weather-info">
-                <span class="weather-label">Wind speed</span>
-                <div id="wind_speedYRNO"></div>
-                <span class="unit">m/s</span>
-            </div>
-        </div>
-        <div class="weather-item">
-            <div class="weather-icon">
-                <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
-            </div>
-            <div class="weather-info">
-                <span class="weather-label">Humidity</span>
-                <div id="relative_humidityYRNO"></div>
-                <span class="unit">%</span>
-            </div>
-        </div>
-    </div>
-    <!-- <a class="hourly-btn">See more API details</a> -->
-    <label for="css-modal-checkbox" class="css-modal-checkbox">See more details</label>
-</div>
-<input type="checkbox" id="css-modal-checkbox"/>
-<div class="cmc">
-    <div class="cmt">
-        <p>Ebani web</p>
-    </div>
-    <label for="css-modal-checkbox" class="css-modal-close"></label>
-</div>
-
-
-
-    <div class="border-item">
-        <p>Weather by API-Ninjas</p>
-        <p id="locationResultNinjas">Nizhny Novgorod</p>
-    <div class="main-weather">
-        <div class="main-temp-container">
-            <div id="temperatureNinjas" class="main-temp"></div>
-            <span class="temp-unit">°C</span>
-        </div>
-    </div>
-    <div class="weather-details">
-        <div class="weather-item">
-            <div class="weather-icon">
-                <img id="WeatherIconNinjas" style="width: 90px; height: 90px;">
-            </div> 
-            <div class="weather-info">
-                <span class="weather-label">Cloudiness</span>
-                <div id="cloud_area_fractionNinjas"></div>
-                <span class="unit">%</span>
-            </div>
-        </div>
-        <div class="weather-item">
-            <div class="weather-icon">
-                <img src="img1/climacons-master/SVG/Wind.svg" style="width: 100px; height: 100px;">
-            </div>
-            <div class="weather-info">
-                <span class="weather-label">Wind speed</span>
-                <div id="wind_speedNinjas"></div>
-                <span class="unit">m/s</span>
-            </div>
-        </div>
-        <div class="weather-item">
-            <div class="weather-icon">
-                <img src="img1/climacons-master/SVG/Cloud-Rain.svg" style="width: 100px; height: 100px;">
-            </div>
-            <div class="weather-info">
-                <span class="weather-label">Humidity</span>
-                <div id="relative_humidityNinjas"></div>
-                <span class="unit">%</span>
-            </div>
-        </div>
-    </div>
-    <a class="hourly-btn">See more API details</a>
-</div>
-</div>
 
     <footer>
         <div class="footer-content">
             <div class="developer-info">
+                <h3><i class="fas fa-user-tie"></i> Developers</h3>
                 <p class="dev-details">
-                    Dev: Uliana and Ksyusha<br>
-                    Project: WForecaster<br>
-                    <a href="https://github.com/UlianaKustova/wforecaster" class="social-link">Uliana's GitHub</a><br>
-                    <a href="https://github.com/KssBerring" class="social-link">Ksyusha's GitHub</a><br>
-                    Data Source: YR.NO & Weather by API-Ninjas & OpenWeather<br>
-                    2025<br>
+                    <i class="fas fa-user"></i> Uliana and Ksyusha<br>
+                    <i class="fas fa-project-diagram"></i> Project: WForecaster<br>
+                    <a href="https://github.com/UlianaKustova/wforecaster" class="social-link"><i class="fab fa-github"></i> Uliana's GitHub</a><br>
+                    <a href="https://github.com/KssBerring" class="social-link"><i class="fab fa-github"></i> Ksyusha's GitHub</a><br>
+                    <i class="fas fa-database"></i> Data Source: YR.NO & Weather by API-Ninjas & OpenWeather<br>
+                    <i class="far fa-copyright"></i> 2025<br>
                 </p>
             </div>
             <div class="contact-form">
-                <h3>Contact us</h3>
+                <h3><i class="fas fa-envelope"></i> Contact us</h3>
                 <form id="contactForm">
                     <div class="form-group">
                         <input type="text" id="Name" placeholder="Name" required>
@@ -193,7 +235,7 @@
                     <div class="form-group">
                         <textarea id="Message" placeholder="Your message" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Send</button>
+                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send</button>
                 </form>
             </div>
         </div>
@@ -213,9 +255,6 @@
         messages.push(formData);
         localStorage.setItem('contactMessages', JSON.stringify(messages));
         this.reset();
-        alert('Success');
+        alert('Message sent successfully!');
     });
     </script>
-</body>
-</html>
-

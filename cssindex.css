@@ -165,25 +165,8 @@ nav li {
     cursor: pointer;
 }
 
-nav a {
-    display: block;
-    padding: 20px 10px;
-    color: #ffffff;
-    font-size: 25px;
-    line-height: 60px;
-    text-decoration: none;
-    font-family: Arial, sans-serif;
-}
 
-nav a.a1 {
-    font-size: 35px;
-    text-align: left;
-}
 
-nav a:hover {
-    text-decoration: none;
-    color: #7191f9f1;
-}
 
 footer {
     background-color: rgba(18, 32, 38, 0.658);
@@ -221,6 +204,7 @@ footer {
     text-decoration: underline;
 }
 
+
 .contact-form {
     background-color: rgba(18, 32, 38, 0.5);
     padding: 20px;
@@ -244,6 +228,13 @@ footer {
     width: 100%;
 }
 
+.form-icon {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
 .form-group input, .form-group textarea {
     width: 100%;
     padding: 12px;
@@ -258,17 +249,24 @@ footer {
     box-sizing: border-box;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    padding-top: 15px;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: rgba(113, 145, 249, 0.7);
-    box-shadow: 0 0 8px rgba(113, 145, 249, 0.3);
-}
+
+.form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: rgba(113, 145, 249, 0.8);
+        box-shadow: 0 0 12px rgba(113, 145, 249, 0.3);
+    }
 
 .form-group textarea {
     min-height: 120px;
@@ -299,7 +297,14 @@ footer {
 .submit-btn:active {
     transform: translateY(0);
 }
-
+/* .search-icon {
+    position: absolute;
+    left: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    z-index: 2;
+} */
+    
 #cityInput {
     width: 550px;
     height: 50px;
@@ -364,10 +369,9 @@ footer {
     /* max-width: 500px; */
 }
 
-.hourly-btn {
-    margin-top: 20px;
+.hourly-btn, .css-modal-checkbox {
+    margin-top: 25px;
     padding: 12px 25px;
-    /* background-color: rgba(18, 32, 38, 0.541); */
     background-color: rgba(113, 145, 249, 0.7);
     border: none;
     color: white;
@@ -377,9 +381,11 @@ footer {
     font-size: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
-
 
 .css-modal-checkbox-container {
     height: 60px;
@@ -498,19 +504,7 @@ header {
     font-size: 40px;
 }
 
-nav {
-    min-width: 100%;
-    min-height: 100px;
-    position: relative;
-    z-index: 1000;
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2); */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0,0,0,0.2);
-    background-color: rgba(18, 32, 38, 0.5);
-    list-style: none;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
+
 
 nav li {
     margin: 0 40px;
@@ -536,4 +530,5 @@ nav a.a1 {
 nav a:hover {
     text-decoration: none;
     color: #7191f9f1;
+    transform: translateY(-2px);
 }
