@@ -111,6 +111,47 @@ p1 {
     margin: 0;
 }
 
+.extra-info {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.info-block {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.info-label {
+    color: #ffffff;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 5px;
+}
+
+#sunrisetimeYRNO, #sunsettimeYRNO, #sunrisetimeNinjas, #sunsettimeNinjas {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+
+.item + .item {
+    margin-left: 20px;
+}
+
 .dev-details {
     color: #ffffff;
     font-size: 16px;
@@ -428,7 +469,7 @@ footer {
     max-width: 600px;
     max-height: 70%;
     transition: 0.5s;
-    background-color: rgba(18, 32, 38, 0.7);
+    background-color: rgba(18, 32, 38);
     /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0, 0, 0, 0.2);  */
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.488), 0 16px 20px rgba(255, 255, 255, 0.296);
     text-align: center;
