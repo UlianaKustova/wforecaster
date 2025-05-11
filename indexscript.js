@@ -1,4 +1,3 @@
-
 let lat = 56.194, lon = 44.0007, town, setlocationText = "Nizhny Novgorod";
 
 const getLocation = async () => {
@@ -52,7 +51,7 @@ const getForecast = async () => {
             txtYRNO = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
             txtOpenWeather = "https://open-weather13.p.rapidapi.com/fivedaysforcast?latitude=56.194&longitude=44.0007&lang=EN";
             txtNinjas = "https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?lat=56.194&lon=44.0007";
-            txtSun = "https://api.met.no/weatherapi/sunrise/3.0/sun?lat=56.194&lon=44.0007&date=" + formattedDate;
+            txtSunYRNO = "https://api.met.no/weatherapi/sunrise/3.0/sun?lat=56.194&lon=44.0007&date=" + formattedDate;
 
         }
         else { 
@@ -62,25 +61,39 @@ const getForecast = async () => {
             txtNinjas = "https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?lat=" + lat + "&lon=" + lon;
             txtSunYRNO = "https://api.met.no/weatherapi/sunrise/3.0/sun?" + lat + "&lon=" + lon + "&date=" + formattedDate;
         }
-        responseYRNO = await fetch(txtYRNO,
-            {
-                method: 'GET', // получаем данные 
-                headers: {
-                    'Accept': '*/*', // указываем что принимаем все типы 
-                    'User-Agent': 'MyTestApp/0.2' // кто запрашивает
-                }
-            }
-        );
+    //-----------------------------------------пример для сайта
+    //     try {
+    //         txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
+    //         response = await fetch(txt,
+    //         {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Accept': '*/*',
+    //                 'User-Agent': 'your_project'
+    //             }
+    //         }
+    //     );
+    //     responseYRNO = await fetch(txtYRNO,
+    //         {
+    //             method: 'GET', // получаем данные 
+    //             headers: {
+    //                 'Accept': '*/*', // указываем что принимаем все типы 
+    //                 'User-Agent': 'MyTestApp/0.2' // кто запрашивает
+    //             }
+    //         }
+    //     );
+    //     if (response.ok) {
+    //         json = await response.json();
 
-        responseSun = await fetch(txtSunYRNO,
-            {
-                method: 'GET', // получаем данные 
-                headers: {
-                    'Accept': '*/*', // указываем что принимаем все типы 
-                    'User-Agent': 'MyTestApp/0.2' // кто запрашивает
-                }
-            }
-        );
+    //     }
+    //     else {
+    //         console.log("some err YRNO"); //TODO сделать адекватное сообщение об ошибке
+    //     }
+    // }
+    //     catch (error) {
+    //     console.error(error);
+    // }
+        //-------------------------------------------------конец примера
 
         // responseNinjas = await fetch(txtNinjas,
         //         {
@@ -94,6 +107,26 @@ const getForecast = async () => {
         //         }
         //     );
 
+            responseYRNO = await fetch(txtYRNO,
+                {
+                    method: 'GET', // получаем данные 
+                    headers: {
+                        'Accept': '*/*', // указываем что принимаем все типы 
+                        'User-Agent': 'MyTestApp/0.2' // кто запрашивает
+                    }
+                }
+            );
+
+            responseSun = await fetch(txtSunYRNO,
+            {
+                method: 'GET',
+                headers: {
+                    'Accept': '*/*',
+                    'User-Agent': 'MyTestApp/0.2'
+                }
+            }
+        );
+
         // responseOpenWeather = await fetch(txtOpenWeather,
         //         {
         //         method: 'GET',
@@ -101,44 +134,13 @@ const getForecast = async () => {
         //             'Accept': '*/*',
         //             'User-Agent': 'MyTestApp/0.2',
         //             'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
-        //             'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
+		//             'x-rapidapi-host': 'openweather43.p.rapidapi.com'
         //             }
         //         }
         //     );
-        responseNinjas = await fetch(txtNinjas,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Accept': '*/*',
-                        'User-Agent': 'MyTestApp/0.2',
-                        'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
-                        'x-rapidapi-host': 'weather-by-api-ninjas.p.rapidapi.com'
-                    }
-                }
-            );
-            responseYRNO = await fetch(txtYRNO,
-                        {
-                            method: 'GET', // получаем данные 
-                            headers: {
-                                'Accept': '*/*', // указываем что принимаем все типы 
-                                'User-Agent': 'MyTestApp/0.2' // кто запрашивает
-                            }
-                        }
-                    );
-        responseOpenWeather = await fetch(txtOpenWeather,
-                {
-                method: 'GET',
-                headers: {
-                    'Accept': '*/*',
-                    'User-Agent': 'MyTestApp/0.2',
-                    'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
-		            'x-rapidapi-host': 'openweather43.p.rapidapi.com'
-                    }
-                }
-            );
 
 
-        if (responseYRNO.ok && responseSun) { // если HTTP-статус в диапазоне 200-299
+        if (responseYRNO.ok) { // если HTTP-статус в диапазоне 200-299
             json = await responseYRNO.json();//представляем ответ в виде json
             console.log("json here YRNO");
             let num = 0;
@@ -146,8 +148,6 @@ const getForecast = async () => {
             cloud_area_fractionYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.cloud_area_fraction);
             wind_speedYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.wind_speed);
             relative_humidityYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.relative_humidity);
-
-
 
             let temperatureElementYRNO = document.getElementById('temperatureYRNO');
             let cloud_area_fractionElementYRNO = document.getElementById('cloud_area_fractionYRNO');
@@ -251,10 +251,10 @@ const getForecast = async () => {
         // if (responseOpenWeather.ok) {
         //     json = await responseOpenWeather.json();
         //     console.log("json here OpenWeather");
-        //     tttOpenWeather = JSON.stringify(json.list[0].main.temp);
-        //     cloud_area_fractionOpenWeather = JSON.stringify(json.list[0].clouds.all);
-        //     wind_speedOpenWeather = JSON.stringify(json.list[0].wind.speed);
-        //     relative_humidityOpenWeather = JSON.stringify(json.list[0].main.humidity);
+        //     tttOpenWeather = JSON.stringify(json.main.temp);
+        //     cloud_area_fractionOpenWeather = JSON.stringify(json.clouds.all);
+        //     wind_speedOpenWeather = JSON.stringify(json.wind.speed);
+        //     relative_humidityOpenWeather = JSON.stringify(json.main.humidity);
             
         //     let temperatureElementOpenWeather = document.getElementById('temperatureOpenWeather');
         //     let cloud_area_fractionElementOpenWeather = document.getElementById('cloud_area_fractionOpenWeather');
@@ -262,8 +262,7 @@ const getForecast = async () => {
         //     let relative_humidityElementOpenWeather = document.getElementById('relative_humidityOpenWeather');
 
         //     tttOpenWeather = tttOpenWeather - 273;
-        //     tttOpenWeather = tttOpenWeather.toFixed(2);
-        //     temperatureElementOpenWeather.innerHTML = tttOpenWeather;
+        //     temperatureElementOpenWeather.innerHTML = tttOpenWeather.slice(0, 5);
         //     cloud_area_fractionElementOpenWeather.innerHTML = cloud_area_fractionOpenWeather;
         //     wind_speedElementOpenWeather.innerHTML = wind_speedOpenWeather;
         //     relative_humidityElementOpenWeather.innerHTML = relative_humidityOpenWeather;
@@ -295,48 +294,6 @@ const getForecast = async () => {
 }
 
 getForecast();
-
-// const getSunPose = async () => {
-//     const today = new Date(); // Текущая дата
-//     const formattedDate = today.toISOString().split('T')[0]; // Берем только дату без времени
-//     try {
-//         // txt = "https://api.met.no/weatherapi/sunrise/3.0/sun?lat=56.194&lon=44.0007&date=2025-05-10";
-//         if (lat === 56.194 && lon === 44.0007) {
-//             txtSun = "https://api.met.no/weatherapi/sunrise/3.0/sun?lat=56.194&lon=44.0007&date=" + formattedDate;
-
-//         }
-//         else{ 
-//             txtSun = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=" + lat + "&lon=" + lon + "&date=" + formattedDate;
-//         }
-//         responseSun = await fetch(txt,
-//         {
-//           method: 'GET',
-//           headers: {
-//             'Accept': '*/*',
-//             'User-Agent': 'MyTestApp/0.2'
-//           }
-//         }
-//         );
-//       if (responseSun.ok) {
-//         json = await responseSun.json();
-//         console.log("sun here");
-//         sunup = JSON.stringify(json.features[0].properties.geocoding.name);
-//         sundown = JSON.stringify(json.features[0].properties.geocoding.label);
-//         console.log(town);
-//         console.log(setlocationText);
-//         document.getElementById('locationResultYRNO').textContent = setlocationText;
-//         document.getElementById('locationResultOpenWeather').textContent = setlocationText;
-
-//       } else {
-//         console.log("some err in sun"); //todo сообщить об ошибке
-//         flag = true;
-//       }
-//     }
-//     catch (error) {
-//             console.error(error);
-//     }
-// }
-// getSunPose();
 
 document.addEventListener('DOMContentLoaded', () => {
     const button = document.getElementById('searchButton');
