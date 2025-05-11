@@ -101,7 +101,7 @@ const getForecast = async () => {
         //             'Accept': '*/*',
         //             'User-Agent': 'MyTestApp/0.2',
         //             'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
-        //             'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
+		//             'x-rapidapi-host': 'openweather43.p.rapidapi.com'
         //             }
         //         }
         //     );

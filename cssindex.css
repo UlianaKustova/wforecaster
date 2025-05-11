@@ -206,25 +206,8 @@ nav li {
     cursor: pointer;
 }
 
-nav a {
-    display: block;
-    padding: 20px 10px;
-    color: #ffffff;
-    font-size: 35px;
-    line-height: 60px;
-    text-decoration: none;
-    font-family: Arial, sans-serif;
-}
 
-nav a.a1 {
-    font-size: 25px;
-    text-align: left;
-}
 
-nav a:hover {
-    text-decoration: none;
-    color: #7191f9f1;
-}
 
 footer {
     background-color: rgba(18, 32, 38, 0.658);
@@ -262,8 +245,35 @@ footer {
     text-decoration: underline;
 }
 
+
+.contact-form {
+    background-color: rgba(18, 32, 38, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+.contact-form h3 {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 .form-group {
     margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-icon {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .form-group input, .form-group textarea {
@@ -277,23 +287,32 @@ footer {
     font-size: 16px;
     transition: all 0.3s ease;
     margin-bottom: 15px;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: rgba(113, 145, 249, 0.7);
-    box-shadow: 0 0 8px rgba(113, 145, 249, 0.3);
+    box-sizing: border-box;
 }
 
 .form-group textarea {
     min-height: 120px;
     resize: vertical;
+    padding-top: 15px;
+}
+
+
+.form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: rgba(113, 145, 249, 0.8);
+        box-shadow: 0 0 12px rgba(113, 145, 249, 0.3);
+    }
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    margin-bottom: 0;
 }
 
 .submit-btn {
@@ -307,6 +326,7 @@ footer {
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .submit-btn:hover {
@@ -318,22 +338,14 @@ footer {
 .submit-btn:active {
     transform: translateY(0);
 }
-
-.contact-form {
-    background-color: rgba(18, 32, 38, 0.5);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.contact-form h3 {
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
+/* .search-icon {
+    position: absolute;
+    left: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    z-index: 2;
+} */
+    
 #cityInput {
     width: 550px;
     height: 50px;
@@ -398,10 +410,9 @@ footer {
     /* max-width: 500px; */
 }
 
-.hourly-btn {
-    margin-top: 20px;
+.hourly-btn, .css-modal-checkbox {
+    margin-top: 25px;
     padding: 12px 25px;
-    /* background-color: rgba(18, 32, 38, 0.541); */
     background-color: rgba(113, 145, 249, 0.7);
     border: none;
     color: white;
@@ -411,9 +422,11 @@ footer {
     font-size: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
-
 
 .css-modal-checkbox-container {
     height: 60px;
@@ -522,4 +535,41 @@ footer {
 @keyframes move {
     from { transform: translateY(-20px); }
     to { transform: translateY(0); }
+}
+
+header {
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 2%;
+    text-align: center;
+    font-size: 40px;
+}
+
+
+
+nav li {
+    margin: 0 40px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+nav a {
+    display: block;
+    padding: 20px 10px;
+    color: #ffffff;
+    font-size: 25px;
+    line-height: 60px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+
+nav a.a1 {
+    font-size: 35px;
+    text-align: left;
+}
+
+nav a:hover {
+    text-decoration: none;
+    color: #7191f9f1;
+    transform: translateY(-2px);
 }

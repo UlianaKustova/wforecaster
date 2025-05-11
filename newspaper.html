@@ -3,45 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather news</title>
-    <section>
-        <nav>
-            <li><a href="index.html">Homepage</a></li>
-            <li><a href="wforecaster.html">WForecaster</a></li>
-            <li><a href="https://api.met.no/weatherapi/locationforecast/2.0/documentation">For devs</a></li>
-        </nav>
-    </section>
+    <link rel="stylesheet" href="cssindex.css">
+    <title>Weather Facts</title>
+    <!-- Добавляем Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Стили для навигации с иконками */
+        nav {
+            min-width: 100%;
+            min-height: 100px;
+            position: relative;
+            z-index: 1000;
+            /* box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2); */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0,0,0,0.2);
+            background-color: rgba(18, 32, 38, 0.5);
+            list-style: none;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        nav li {
+            display: inline;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+
+    </style>
 </head>
 <body>
+    <section>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Homepage</a></li>
+                <li><a href="wforecaster.html"><i class="fas fa-cloud-sun-rain"></i> WForecaster</a></li>
+                <li><a href="https://api.met.no/weatherapi/locationforecast/2.0/documentation"><i class="fas fa-code"></i> For devs</a></li>
+            </ul>
+        </nav>
+    </section>
+
     <header>
-        <h1>Weather News</h1>
+        <h1><i class="fas fa-cloud-sun"></i> Weather Facts</h1>
     </header>
     <script>
         const getForecast = async () => {
         try {
-            //txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=" + lat + "&lon=" + lon;
             txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
             response = await fetch(txt,
-            //await говорит о том что данная функция будет выполнятся асинхронно и не будет блокировать выполнение другого кода приложения
-            //fetch функция получения данных по api
                 {
-                    method: 'GET', // получаем данные 
+                    method: 'GET',
                     headers: {
-                        'Accept': '*/*', // указываем что принимаем все типы 
-                        'User-Agent': 'MyTestApp/0.2' // кто запрашивает
+                        'Accept': '*/*',
+                        'User-Agent': 'MyTestApp/0.2'
                     }
                 }
             );
 
-            if (response.ok) { // если HTTP-статус в диапазоне 200-299
-                json = await response.json();//представляем ответ в виде json
+            if (response.ok) {
+                json = await response.json();
                 console.log("json here");
                 cloud_area_fraction = JSON.stringify(json.properties.timeseries[0].data.instant.details.cloud_area_fraction);
 
                 if (cloud_area_fraction < 20) {
                     document.body.style.background = "url('img1/backgr20.jpg')";
                     document.body.style.backgroundSize = "auto 160%";
-
                 }
                 if (cloud_area_fraction > 20 && cloud_area_fraction < 50) {
                     document.body.style.background = "url('img1/backgr20_50.jpg')";
@@ -50,7 +96,6 @@
                 if (cloud_area_fraction > 50 && cloud_area_fraction < 80) {
                     document.body.style.background = "url('img1/backgr50_80.jpg')";
                     document.body.style.backgroundSize = "auto 120%";
-
                 }
                 if (cloud_area_fraction > 80 ) {
                     document.body.style.background = "url('img1/backgr801.jpg')";
@@ -60,7 +105,7 @@
                 document.body.style.backgroundAttachment = "fixed";
             } 
             else {
-                console.log("some err"); //TODO сделать адекватное сообщение об ошибке
+                console.log("some err");
             }
         } 
         catch (error) {
@@ -73,197 +118,402 @@
 
     <div class="news-container">
         <div class="news-section important-news">
-            <h2>Important Updates</h2>
+            <h2><i class="fas fa-trophy"></i> Amazing Weather Records</h2>
             <div class="news-card">
                 <div class="news-header">
-                    <span class="news-date">11 March 2025</span>
-                    <span class="news-tag important">Important</span>
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Historical Record</span>
+                    <span class="news-tag important"><i class="fas fa-star"></i> Record</span>
                 </div>
-                <h3>There is a strong wind in Moscow!</h3>
-                <p class="news-content">Gusts can reach 15–20 m/s.</p>
-                <a href="https://www.gismeteo.ru/news/weather/v-moskve-silnyj-veter/" class="read-more" target="_blank">Read more</a>
-            </div>
-        </div>
-        <div class="news-section">
-            <h2>Latest News</h2>
-            <div class="news-card">
-                <div class="news-header">
-                    <span class="news-date">14 March 2025</span>
-                    <span class="news-tag forecast">Forecast</span>
-                </div>
-                <h3>Weather in St. Petersburg: Winter Returns</h3>
-                <p class="news-content">Frosts down to -5 are predicted at night, and +1…+3 during the day.</p>
-                <a href="https://www.gismeteo.ru/news/weather/pogoda-v-sankt-peterburge-vozvrat-zimy/" class="read-more" target="_blank">Read more</a>
+                <h3><i class="fas fa-temperature-high"></i> The Hottest Place on Earth</h3>
+                <p class="news-content">Death Valley, California holds the record for the highest air temperature ever recorded on Earth: 56.7°C (134°F) on July 10, 1913. This temperature was recorded at Furnace Creek Ranch.</p>
             </div>
 
             <div class="news-card">
                 <div class="news-header">
-                    <span class="news-date">16 March 2025</span>
-                    <span class="news-tag climate">Climate</span>
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Cyclone Record</span>
+                    <span class="news-tag important"><i class="fas fa-star"></i> Record</span>
                 </div>
-                <h3>Disaster in the USA</h3>
-                <p class="news-content">Tornadoes, massive fires and dust storms have claimed dozens of lives</p>
-                <a href="https://www.gismeteo.ru/news/nature/stihiya-v-ssha-tornado-masshtabnye-pozhary-i-pylnye-buri-unesli-desyatki-zhiznej/" class="read-more" target="_blank">Read more</a>
+                <h3><i class="fas fa-hurricane"></i> Longest-Lasting Tropical Cyclone</h3>
+                <p class="news-content">Hurricane/Typhoon "John" holds the record for the longest-lasting tropical cyclone. It raged in the northeast and northwest Pacific Ocean for an entire month - from August 10 to September 10, 1994.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Cyclone Record</span>
+                    <span class="news-tag important"><i class="fas fa-star"></i> Record</span>
+                </div>
+                <h3><i class="fas fa-wind"></i> Most Intense Tropical Cyclone</h3>
+                <p class="news-content">The most intense tropical cyclone on record is Typhoon "Tip," observed on October 12, 1979, in the northwest Pacific. Wind speeds reached 17 m/s, and the system extended 1,100 kilometers from its center.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Storm Record</span>
+                    <span class="news-tag important"><i class="fas fa-star"></i> Record</span>
+                </div>
+                <h3><i class="fas fa-water"></i> Most Powerful Storm Surge</h3>
+                <p class="news-content">The most powerful storm surge in recorded history occurred on March 5, 1899, in Bathurst Bay, Queensland, Australia. The water level rise caused by Tropical Cyclone "Mahina" reached 13 meters.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Drought Record</span>
+                    <span class="news-tag important"><i class="fas fa-star"></i> Record</span>
+                </div>
+                <h3><i class="fas fa-sun"></i> Longest Drought</h3>
+                <p class="news-content">The Chilean city of Arica experienced a drought lasting 173 months - from November 1903 to January 1918, making it the longest recorded drought in history.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Rainfall Record</span>
+                    <span class="news-tag important"><i class="fas fa-star"></i> Record</span>
+                </div>
+                <h3><i class="fas fa-cloud-rain"></i> Most Rainfall in 24 Hours</h3>
+                <p class="news-content">The highest 24-hour rainfall record was set on the French island of Réunion in the Indian Ocean, where 1,825 mm of rain fell between January 7-8, 1966.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Wave Record</span>
+                    <span class="news-tag important"><i class="fas fa-star"></i> Record</span>
+                </div>
+                <h3><i class="fas fa-water"></i> Highest Wave</h3>
+                <p class="news-content">The highest wave ever measured by a buoy was recorded in the North Atlantic on February 4, 2013, reaching a height of 19 meters.</p>
+            </div>
+        </div>
+        <div class="news-section">
+            <h2><i class="fas fa-lightbulb"></i> Interesting Facts</h2>
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Ancient Discovery</span>
+                    <span class="news-tag forecast"><i class="fas fa-history"></i> History</span>
+                </div>
+                <h3><i class="fas fa-newspaper"></i> First Weather Forecast</h3>
+                <p class="news-content">The first weather forecast was published in The Times newspaper in 1861. It was created by Robert FitzRoy, who was the captain of the HMS Beagle during Charles Darwin's famous voyage.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Natural Phenomenon</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-bolt"></i> Lightning Facts</h3>
+                <p class="news-content">A single bolt of lightning can heat the air around it to 30,000°C (54,000°F), which is five times hotter than the surface of the sun. The average lightning bolt is about 2-3 miles long and carries a current of 100 million volts.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Weather Science</span>
+                    <span class="news-tag climate"><i class="fas fa-flask"></i> Science</span>
+                </div>
+                <h3><i class="fas fa-cloud-rain"></i> Raindrop Shape</h3>
+                <p class="news-content">Contrary to popular belief, raindrops are not tear-shaped. They are actually shaped like hamburger buns! As they fall, air resistance flattens their bottom while the top remains rounded.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Historical Event</span>
+                    <span class="news-tag important"><i class="fas fa-history"></i> History</span>
+                </div>
+                <h3><i class="fas fa-snowflake"></i> The Year Without Summer</h3>
+                <p class="news-content">In 1816, known as "The Year Without Summer," snow fell in June and crops failed across the Northern Hemisphere. This was caused by the eruption of Mount Tambora in Indonesia, which spewed ash into the atmosphere and blocked sunlight.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Historical Figure</span>
+                    <span class="news-tag climate"><i class="fas fa-brain"></i> Psychology</span>
+                </div>
+                <h3><i class="fas fa-user"></i> Napoleon and Weather Sensitivity</h3>
+                <p class="news-content">Despite his strong personality, Napoleon was susceptible to weather changes. During bad weather, he would become lethargic and depressed. This was particularly evident at Waterloo, where a promising day began with heavy rain and ended in complete defeat.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Literary History</span>
+                    <span class="news-tag forecast"><i class="fas fa-book"></i> Culture</span>
+                </div>
+                <h3><i class="fas fa-umbrella"></i> Bernard Shaw's Rainy Speech</h3>
+                <p class="news-content">A heavy downpour prevented the public from hearing what Bernard Shaw considered his best speech. He delivered it in Hyde Park to just seven people: one was the secretary of the society that invited Shaw to speak, and the other six were police officers maintaining order.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Fashion History</span>
+                    <span class="news-tag climate"><i class="fas fa-tshirt"></i> Style</span>
+                </div>
+                <h3><i class="fas fa-cloud-rain"></i> Weather's Impact on Fashion</h3>
+                <p class="news-content">Weather often influenced fashion trends. For example, English King Edward VII, son of Queen Victoria, once rolled up his trousers during rain. This simple act led to the popularization of cuffs in men's fashion.</p>
+            </div>
+        </div>
+        <div class="news-section">
+            <h2><i class="fas fa-magic"></i> Unusual Weather Phenomena</h2>
+            
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Arctic Phenomenon</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-icicles"></i> Brinicle (Finger of Death)</h3>
+                <p class="news-content">We're used to seeing icicles hanging from roofs. However, in the Arctic there are special icicles that hang underwater and pose a deadly threat to ocean floor inhabitants. This phenomenon was discovered almost 30 years ago, but it wasn't until 2011 that a BBC team managed to film its formation process.</p>
+                <p class="news-content">The formation of this extraordinary icicle is easily explained by science. Salt seawater freezes differently and turns not into solid ice, but into something resembling a porous wet sponge. Icebergs are literally riddled with small channels filled with salt water.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Cloud Formation</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-cloud"></i> Tubular Clouds</h3>
+                <p class="news-content">There are many clouds that have special shapes and unique formation reasons. Mammatus or tubular clouds look particularly strange and unusual. They resemble either pipe sections or numerous suspended balls, their hue changing from white to dark blue-gray. The color depends on the cloud's thickness.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Optical Phenomenon</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-rainbow"></i> Fog Rainbow</h3>
+                <p class="news-content">A fog rainbow is another atmospheric optical phenomenon similar to the well-known rainbow. It appears as a wide, shining white arc. However, this type of rainbow is neutrally colored and can be seen not during rain but during fog.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Electrical Phenomenon</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-bolt"></i> Catatumbo Lightning</h3>
+                <p class="news-content">Catatumbo Lightning is a natural phenomenon occurring in northwestern Venezuela where the river of the same name flows into Lake Maracaibo. Regular thunderstorm activity is observed above the confluence point: there's lightning in the clouds almost 200 days a year, with continuous thunderstorm sessions lasting about 10 hours.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Optical Phenomenon</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-moon"></i> Moonbow</h3>
+                <p class="news-content">This phenomenon is much easier to see in a fantasy quest than in reality. Many factors are required: a full Moon must be low in the sky, the sky must be dark, and there must be a powerful waterfall or rain opposite the Moon.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Optical Phenomenon</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-circle-notch"></i> Glory</h3>
+                <p class="news-content">Glory is another phenomenon related to light diffraction in cloud or fog droplets. This weather phenomenon can only be detected when the light source is behind the observer, and the light reflected from the cloud returns directly to the observer. Glory can be observed in mountains as one's own silhouette or during a flight as the plane's shadow on a cloud.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Coastal Phenomenon</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-coffee"></i> Coastal Cappuccino</h3>
+                <p class="news-content">The sea can turn into foam anywhere on the planet, but this happens most often in the southern hemisphere. Within minutes, the entire coastline, houses and deck chairs disappear in suddenly appeared foam that slowly dissolves on the sand.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Upper-Atmosphere</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-meteor"></i> Sprites, Elves and "Blue Jets"</h3>
+                <p class="news-content">Besides the lightning we see from Earth, powerful flashes directed into space occur above thunderclouds. They are divided into red sprites, "blue jets" and elves. The shape and color of the flashes depend on the altitude at which they occur.</p>
+                <p class="news-content">Unlike lightning, these flashes are characterized by a pronounced blue or red color and cover distances up to 100 km in length and diameter. This makes them an element of space weather, as northern lights and meteors originate in these areas.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Meteorological</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-cloud-sun"></i> Morning Glory</h3>
+                <p class="news-content">Morning Glory is a rare meteorological phenomenon, a "thunderstorm collar" that forms at the boundary of an advancing cold front. A downdraft forces warm moist air to rise and cool - as a result it cools below the dew point and turns into a cloud.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span class="news-date"><i class="far fa-calendar-alt"></i> Volcanic</span>
+                    <span class="news-tag climate"><i class="fas fa-mountain"></i> Nature</span>
+                </div>
+                <h3><i class="fas fa-volcano"></i> Volcanic Lightning</h3>
+                <p class="news-content">Volcanic activity provides a very "nutritious" environment for impressive discharges, and in several ways. The incredible amount of volcanic dust and gas ejected creates a dense stream of charged particles that generates spectacular lightning displays within the volcanic plume.</p>
             </div>
         </div>
     </div>
 
+
     <style>
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background-attachment: fixed;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background-attachment: fixed;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-h1 {
-    color: white;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    display: inline;
-    background-color: rgba(18, 32, 38, 0.7);
-    padding: 10px;
-    line-height: 14px;
-    font-size: 50px;
-}
+    h1 {
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        display: inline;
+        background-color: rgba(18, 32, 38, 0.7);
+        padding: 15px 25px;
+        line-height: 14px;
+        font-size: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
 
-h2 {
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 28px;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: rgba(18, 32, 38, 0.7);
-    display: inline-block;
-}
+    h1 i {
+        margin-right: 15px;
+    }
 
-header {
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 5%;
-    text-align: center;
-    font-size: 10px;
-    margin-bottom: 3%;
-}
+    h2 {
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 28px;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background-color: rgba(18, 32, 38, 0.7);
+        display: inline-block;
+        border-radius: 6px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
 
-nav {
-        width: 100%;
-        height: 150px;
-        position: relative;
-        z-index: 1000;
-        /* box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2); */
+    h2 i {
+        margin-right: 10px;
+    }
+
+    h3 i {
+        margin-right: 10px;
+        color: #71a1f8;
+    }
+
+    header {
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 5%;
+        text-align: center;
+        font-size: 10px;
+        margin-bottom: 3%;
+    }
+
+    .news-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .news-section {
+        margin-bottom: 40px;
+    }
+
+    .news-card {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0,0,0,0.2);
         background-color: rgba(18, 32, 38, 0.5);
-        list-style: none;
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.2s ease;
+        position: relative;
         display: flex;
-        justify-content: flex-start;
+        flex-direction: column;
+        border-radius: 8px;
+        border-left: 4px solid #71a1f8;
+    }
+
+    .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 20px 25px rgba(0,0,0,0.2);
+    }
+
+    .news-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .news-date {
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        opacity: 0.8;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .news-tag {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .news-tag.important {
+        background-color: rgba(255, 99, 71, 0.3);
+        color: #ffcccb;
+        border: 1px solid rgba(255, 99, 71, 0.5);
+    }
+
+    .news-tag.forecast {
+        background-color: rgba(100, 149, 237, 0.3);
+        color: #b3c9ff;
+        border: 1px solid rgba(100, 149, 237, 0.5);
+    }
+
+    .news-tag.climate {
+        background-color: rgba(46, 139, 87, 0.3);
+        color: #98fb98;
+        border: 1px solid rgba(46, 139, 87, 0.5);
+    }
+
+    .news-card h3 {
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 22px;
+        margin: 0 0 15px 0;
+        display: flex;
         align-items: center;
     }
 
-    nav li {
-        margin: 0 40px;
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    nav a {
-        display: block;
-        padding: 20px 10px;
+    .news-content {
         color: #ffffff;
-        font-size: 25px;
-        line-height: 60px;
-        text-decoration: none;
         font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0 0 20px 0;
+        opacity: 0.9;
     }
 
-    nav a:hover {
+    .read-more {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: rgba(113, 145, 249, 0.3);
+        color: white;
         text-decoration: none;
-        color: #7191f9f1;
+        border-radius: 4px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        transition: background-color 0.2s ease;
+        align-self: flex-start;
+        margin-top: auto;
+        border: 1px solid rgba(113, 145, 249, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 
-.news-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.news-section {
-    margin-bottom: 40px;
-}
-
-.news-card {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0,0,0,0.2);
-    background-color: rgba(18, 32, 38, 0.5);
-    padding: 20px;
-    margin-bottom: 20px;
-    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
-    transition: transform 0.2s ease;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.news-card:hover {
-    transform: translateY(-5px);
-}
-
-.news-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.news-date {
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-.news-tag {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-}
-
-.news-card h3 {
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    font-size: 22px;
-    margin: 0 0 15px 0;
-}
-
-.news-content {
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 0 0 20px 0;
-    opacity: 0.9;
-}
-
-.read-more {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: rgba(113, 145, 249, 0.3);
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-    align-self: flex-start;
-    margin-top: auto;
-    border: 1px solid rgba(113, 145, 249, 0.5);
-}
-
-.read-more:hover {
-    background-color: rgba(113, 145, 249, 0.5);
-}
-
+    .read-more:hover {
+        background-color: rgba(113, 145, 249, 0.5);
+    }
     </style>
 </body>
 </html>
