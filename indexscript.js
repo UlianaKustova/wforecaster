@@ -140,24 +140,41 @@ const getForecast = async () => {
         //     );
 
 
-        if (responseYRNO.ok) { // если HTTP-статус в диапазоне 200-299
+        if (responseYRNO.ok && responseSun.ok) { // если HTTP-статус в диапазоне 200-299
             json = await responseYRNO.json();//представляем ответ в виде json
+            json2 = await responseSun.json();
             console.log("json here YRNO");
             let num = 0;
             tttYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.air_temperature);
             cloud_area_fractionYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.cloud_area_fraction);
             wind_speedYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.wind_speed);
             relative_humidityYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.relative_humidity);
+            sunriseTime = JSON.stringify(json2.properties.sunrise.time);
+            sunsetTime = JSON.stringify(json2.properties.sunset.time);
 
             let temperatureElementYRNO = document.getElementById('temperatureYRNO');
             let cloud_area_fractionElementYRNO = document.getElementById('cloud_area_fractionYRNO');
             let wind_speedElementYRNO = document.getElementById('wind_speedYRNO');
             let relative_humidityElementYRNO = document.getElementById('relative_humidityYRNO');
+            let sunriseTimeElement = document.getElementById('sunrisetimeYRNO');
+            let sunsetTimeElement = document.getElementById('sunsettimeYRNO');
+
+            sunriseDate = new Date(JSON.parse(sunriseTime));
+            sunsetDate = new Date(JSON.parse(sunsetTime));
+            sunriseDate.setUTCHours(sunriseDate.getUTCHours() + 3);
+            sunsetDate.setUTCHours(sunsetDate.getUTCHours() + 3);
+            const options = { hour: 'numeric', minute: 'numeric' };
+            const sunriseTimeMoscow = sunriseDate.toLocaleTimeString('ru-RU', options);
+            const sunsetTimeMoscow = sunsetDate.toLocaleTimeString('ru-RU', options);
+            console.log("json sun here");
+
 
             temperatureElementYRNO.innerHTML = tttYRNO;
             cloud_area_fractionElementYRNO.innerHTML = cloud_area_fractionYRNO;
             wind_speedElementYRNO.innerHTML = wind_speedYRNO;
             relative_humidityElementYRNO.innerHTML = relative_humidityYRNO;
+            sunriseTimeElement.innerHTML = sunriseTimeMoscow;
+            sunsetTimeElement.innerHTML = sunsetTimeMoscow;
 
             // cloud_area_fraction = 22;
             // ttt = -1;
@@ -191,7 +208,6 @@ const getForecast = async () => {
         else {
             console.log("some err YRNO"); //TODO сделать адекватное сообщение об ошибке
         }
-
 
 
         // if (responseNinjas.ok) { // если HTTP-статус в диапазоне 200-299
