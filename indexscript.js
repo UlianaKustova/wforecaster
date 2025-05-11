@@ -63,7 +63,7 @@ const getForecast = async () => {
         }
     //-----------------------------------------пример для сайта
     //     try {
-    //         txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
+    //         txt = "https://api.met.no/YOUR_API_EXAMPLE";
     //         response = await fetch(txt,
     //         {
     //             method: 'GET',
@@ -87,7 +87,7 @@ const getForecast = async () => {
 
     //     }
     //     else {
-    //         console.log("some err YRNO"); //TODO сделать адекватное сообщение об ошибке
+    //         console.log("Error retrieving data from YRNO"); 
     //     }
     // }
     //     catch (error) {

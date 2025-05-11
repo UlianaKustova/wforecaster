@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cssindex.css">
+    <title>For Developers | WForecaster</title>
+    <!-- Добавляем Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Стили для навигации с иконками */
+        nav {
+            min-width: 100%;
+            min-height: 100px;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0,0,0,0.2);
+            background-color: rgba(18, 32, 38, 0.5);
+            list-style: none;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        nav li {
+            display: inline;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Homepage</a></li>
+                <li><a href="wforecaster.html"><i class="fas fa-cloud-sun-rain"></i> WForecaster</a></li>
+                <li><a href="newspaper.html"><i class="fas fa-newspaper"></i> Weather news</a></li>
+            </ul>
+        </nav>
+    </section>
+
+    <header>
+        <h1><i class="fas fa-code"></i> For Developers</h1>
+    </header>
+    <script>
+        const getForecast = async () => {
+        try {
+            txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
+            response = await fetch(txt,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Accept': '*/*',
+                        'User-Agent': 'MyTestApp/0.2'
+                    }
+                }
+            );
+
+            if (response.ok) {
+                json = await response.json();
+                console.log("json here");
+                cloud_area_fraction = JSON.stringify(json.properties.timeseries[0].data.instant.details.cloud_area_fraction);
+
+                if (cloud_area_fraction < 20) {
+                    document.body.style.background = "url('img1/backgr20.jpg')";
+                    document.body.style.backgroundSize = "auto 160%";
+                }
+                if (cloud_area_fraction > 20 && cloud_area_fraction < 50) {
+                    document.body.style.background = "url('img1/backgr20_50.jpg')";
+                    document.body.style.backgroundSize = "auto 120%";
+                }
+                if (cloud_area_fraction > 50 && cloud_area_fraction < 80) {
+                    document.body.style.background = "url('img1/backgr50_80.jpg')";
+                    document.body.style.backgroundSize = "auto 120%";
+                }
+                if (cloud_area_fraction > 80 ) {
+                    document.body.style.background = "url('img1/backgr801.jpg')";
+                    document.body.style.backgroundSize = "auto 160%";
+                }
+                document.body.style.backgroundRepeat = "no-repeat";
+                document.body.style.backgroundAttachment = "fixed";
+            } 
+            else {
+                console.log("some err");
+            }
+        } 
+        catch (error) {
+            console.error(error);
+        } 
+    }
+
+    getForecast();
+    </script>
+
+    <div class="dev-container">
+        <div class="dev-section">
+            <h2><i class="fas fa-cloud-sun"></i> Weather Data Sources</h2>
+            
+            <div class="dev-card">
+                <div class="dev-header">
+                    <span class="dev-logo"><i class="fas fa-cloud-moon"></i> YR.NO</span>
+                    <span class="dev-tag api"><i class="fas fa-link"></i> API</span>
+                </div>
+                <h3><i class="fas fa-info-circle"></i> About YR.NO</h3>
+                <p class="dev-content">YR.NO is a Norwegian weather service that provides free weather forecasts for any location in the world. It's operated by the Norwegian Meteorological Institute and the Norwegian Broadcasting Corporation.</p>
+                
+                <h3><i class="fas fa-database"></i> Data We Use</h3>
+                <ul class="dev-list">
+                    <li>Air temperature</li>
+                    <li>Cloud area fraction</li>
+                    <li>Wind speed</li>
+                    <li>Relative humidity</li>
+                    <li>Sunrise and sunset times</li>
+                </ul>
+                
+                <div class="code-example">
+                    <h3><i class="fas fa-code"></i> Example API Request</h3>
+                    <pre><code>try {
+    txt = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=56.194&lon=44.0007";
+    response = await fetch(txt,
+    {
+        method: 'GET',
+        headers: {
+            'Accept': '*/*',
+            'User-Agent': 'your_project'
+        }
+    }
+);
+if (response.ok) {
+    json = await response.json();
+
+}
+}
+catch (error) {
+console.error(error);
+}</code></pre>
+                </div>
+                
+                <a href="https://api.met.no/weatherapi/locationforecast/2.0/documentation" class="dev-link" target="_blank"><i class="fas fa-external-link-alt"></i> Official Documentation</a>
+            </div>
+
+            <div class="dev-card">
+                <div class="dev-header">
+                    <span class="dev-logo"><i class="fas fa-sun"></i> OpenWeather</span>
+                    <span class="dev-tag api"><i class="fas fa-link"></i> API</span>
+                </div>
+                <h3><i class="fas fa-info-circle"></i> About OpenWeather</h3>
+                <p class="dev-content">OpenWeather provides global weather data via API, including current weather, forecasts, and historical data. It offers both free and paid plans with different levels of access.</p>
+                
+                <h3><i class="fas fa-database"></i> Data We Use</h3>
+                <ul class="dev-list">
+                    <li>Temperature (converted from Kelvin to Celsius)</li>
+                    <li>Cloud coverage percentage</li>
+                    <li>Wind speed</li>
+                    <li>Humidity</li>
+                </ul>
+                
+                <a href="https://openweathermap.org/api" class="dev-link" target="_blank"><i class="fas fa-external-link-alt"></i> Official Documentation</a>
+            </div>
+
+            <div class="dev-card">
+                <div class="dev-header">
+                    <span class="dev-logo"><i class="fas fa-bolt"></i> Weather by API-Ninjas</span>
+                    <span class="dev-tag api"><i class="fas fa-link"></i> API</span>
+                </div>
+                <h3><i class="fas fa-info-circle"></i> About API-Ninjas</h3>
+                <p class="dev-content">API-Ninjas provides various APIs including a weather API that delivers current weather conditions. It's known for its simplicity and straightforward integration.</p>
+                
+                <h3><i class="fas fa-database"></i> Data We Use</h3>
+                <ul class="dev-list">
+                    <li>Temperature</li>
+                    <li>Cloud percentage</li>
+                    <li>Wind speed</li>
+                    <li>Humidity</li>
+                    <li>Sunrise and sunset times (converted from UNIX timestamp)</li>
+                </ul>
+                
+                <a href="https://api-ninjas.com/api/weather" class="dev-link" target="_blank"><i class="fas fa-external-link-alt"></i> Official Documentation</a>
+            </div>
+        </div>
+
+        <div class="dev-section">
+            <h2><i class="fas fa-project-diagram"></i> Project Architecture</h2>
+            
+            <div class="dev-card">
+                <h3><i class="fas fa-sitemap"></i> How We Integrate APIs</h3>
+                <p class="dev-content">Our application fetches data from multiple weather APIs to provide comprehensive weather information. Here's how we handle the integration:</p>
+                
+                <ol class="dev-list">
+                    <li>User enters a location or uses default coordinates</li>
+                    <li>We geocode the location using OpenStreetMap Nominatim API</li>
+                    <li>We send parallel requests to all weather APIs</li>
+                    <li>We process and display the data in a unified format</li>
+                    <li>We handle errors gracefully with fallback mechanisms</li>
+                </ol>
+                
+                <h3><i class="fas fa-lightbulb"></i> Tips for Developers</h3>
+                <ul class="dev-list">
+                    <li>Always include a proper User-Agent header in your requests</li>
+                    <li>Handle rate limits and API quotas properly</li>
+                    <li>Cache responses when possible to reduce API calls</li>
+                    <li>Provide fallback data sources in case of API failures</li>
+                    <li>Consider timezone differences when displaying time-based data</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background-attachment: fixed;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        display: inline;
+        background-color: rgba(18, 32, 38, 0.7);
+        padding: 15px 25px;
+        line-height: 14px;
+        font-size: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    h1 i {
+        margin-right: 15px;
+    }
+
+    h2 {
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 28px;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background-color: rgba(18, 32, 38, 0.7);
+        display: inline-block;
+        border-radius: 6px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    h2 i {
+        margin-right: 10px;
+    }
+
+    h3 i {
+        margin-right: 10px;
+        color: #71a1f8;
+    }
+
+    header {
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 5%;
+        text-align: center;
+        font-size: 10px;
+        margin-bottom: 3%;
+    }
+
+    .dev-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .dev-section {
+        margin-bottom: 40px;
+    }
+
+    .dev-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.397), 0 16px 20px rgba(0,0,0,0.2);
+        background-color: rgba(18, 32, 38, 0.5);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.2s ease;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px;
+        border-left: 4px solid #71a1f8;
+    }
+
+    .dev-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 20px 25px rgba(0,0,0,0.2);
+    }
+
+    .dev-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .dev-logo {
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .dev-tag {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .dev-tag.api {
+        background-color: rgba(100, 149, 237, 0.3);
+        color: #b3c9ff;
+        border: 1px solid rgba(100, 149, 237, 0.5);
+    }
+
+    .dev-card h3 {
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 22px;
+        margin: 15px 0 15px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .dev-content {
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0 0 20px 0;
+        opacity: 0.9;
+    }
+
+    .dev-list {
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0 0 20px 20px;
+        opacity: 0.9;
+        padding-left: 20px;
+    }
+
+    .dev-list li {
+        margin-bottom: 8px;
+    }
+
+    .code-example {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 6px;
+        padding: 15px;
+        margin: 15px 0;
+        overflow-x: auto;
+    }
+
+    pre {
+        margin: 0;
+    }
+
+    code {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        color: #f8f8f2;
+        line-height: 1.4;
+    }
+
+    .dev-link {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: rgba(113, 145, 249, 0.3);
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        transition: background-color 0.2s ease;
+        align-self: flex-start;
+        margin-top: auto;
+        border: 1px solid rgba(113, 145, 249, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .dev-link:hover {
+        background-color: rgba(113, 145, 249, 0.5);
+    }
+    </style>
+</body>
+</html>
