@@ -59,7 +59,7 @@ const getForecast = async () => {
             // town1 = encodeURIComponent(town.trim());
             txtOpenWeather = "https://open-weather13.p.rapidapi.com/fivedaysforcast?latitude=" + lat + "&longitude=" + lon + '&lang=EN';
             txtNinjas = "https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?lat=" + lat + "&lon=" + lon;
-            txtSunYRNO = "https://api.met.no/weatherapi/sunrise/3.0/sun?" + lat + "&lon=" + lon + "&date=" + formattedDate;
+            txtSunYRNO = "https://api.met.no/weatherapi/sunrise/3.0/sun?lat=" + lat + "&lon=" + lon + "&date=" + formattedDate;
         }
     //-----------------------------------------пример для сайта
     //     try {
@@ -203,6 +203,32 @@ const getForecast = async () => {
             }
             document.body.style.backgroundRepeat = "no-repeat";
             document.body.style.backgroundAttachment = "fixed";
+
+        } 
+        else {
+            console.log("some err YRNO"); //TODO сделать адекватное сообщение об ошибке
+        }
+
+
+        if (responseSun.ok) {
+            json = await responseYRNO.json();
+            sunriseTime = JSON.stringify(json2.properties.sunrise.time);
+            sunsetTime = JSON.stringify(json2.properties.sunset.time);
+
+            let sunriseTimeElement = document.getElementById('sunrisetimeYRNO');
+            let sunsetTimeElement = document.getElementById('sunsettimeYRNO');
+
+            sunriseDate = new Date(JSON.parse(sunriseTime));
+            sunsetDate = new Date(JSON.parse(sunsetTime));
+            sunriseDate.setUTCHours(sunriseDate.getUTCHours() + 3);
+            sunsetDate.setUTCHours(sunsetDate.getUTCHours() + 3);
+            const options = { hour: 'numeric', minute: 'numeric' };
+            const sunriseTimeMoscow = sunriseDate.toLocaleTimeString('ru-RU', options);
+            const sunsetTimeMoscow = sunsetDate.toLocaleTimeString('ru-RU', options);
+            console.log("json sun here");
+
+            sunriseTimeElement.innerHTML = sunriseTimeMoscow;
+            sunsetTimeElement.innerHTML = sunsetTimeMoscow;
 
         } 
         else {
