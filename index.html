@@ -53,7 +53,7 @@
         <nav>
             <ul>
                 <li><a class="a1" href="wforecaster.html"><i class="fas fa-cloud-sun-rain"></i> WForecaster</a></li>
-                <li><a href="newspaper.html"><i class="fas fa-newspaper"></i> Weather news</a></li>
+                <li><a href="newspaper.html"><i class="fas fa-newspaper"></i> Weather facts</a></li>
                 <li><a href="fordevs.html"><i class="fas fa-code"></i> For devs</a></li>
             </ul>
         </nav>
@@ -83,12 +83,12 @@
         <div class="item">
             <img src="img1/climacons-master/SVG/Sunrise.svg" style="width: 60px; height: 60px;" />
             <span class="info-label">Sunrise (GMT+3)</span>
-            <div id="sunrisetimeOpenWeather"></div>
+            <div id="sunrisetimeOpenWeather">No data</div>
         </div>
         <div class="item">
             <img src="img1/climacons-master/SVG/Sunset.svg" style="width: 60px; height: 60px;" />
             <span class="info-label">Sunset (GMT+3)</span>
-            <div id="sunsettimeOpenWeather"></div>
+            <div id="sunsettimeOpenWeather">No data</div>
         </div>
     </div>
 </div>
@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            <a class="hourly-btn"><i class="fas fa-chart-line"></i> See more API details</a>
+            <label for="css-modal-checkbox-openweather" class="css-modal-btn"><a class="hourly-btn"><i class="fas fa-chart-line"></i> See more details</a></label>
         </div>
 
         <div class="border-item">
@@ -143,12 +143,12 @@
         <div class="item">
             <img src="img1/climacons-master/SVG/Sunrise.svg" style="width: 60px; height: 60px;" />
             <span class="info-label">Sunrise (GMT+3)</span>
-            <div id="sunrisetimeYRNO"></div>
+            <div id="sunrisetimeYRNO">No data</div>
         </div>
         <div class="item">
             <img src="img1/climacons-master/SVG/Sunset.svg" style="width: 60px; height: 60px;" />
             <span class="info-label">Sunset (GMT+3)</span>
-            <div id="sunsettimeYRNO"></div>
+            <div id="sunsettimeYRNO">No data</div>
         </div>
     </div>
 </div>
@@ -203,12 +203,12 @@
         <div class="item">
             <img src="img1/climacons-master/SVG/Sunrise.svg" style="width: 60px; height: 60px;" />
             <span class="info-label">Sunrise (GMT+3)</span>
-            <div id="sunrisetimeNinjas"></div>
+            <div id="sunrisetimeNinjas">No data</div>
         </div>
         <div class="item">
             <img src="img1/climacons-master/SVG/Sunset.svg" style="width: 60px; height: 60px;" />
             <span class="info-label">Sunset (GMT+3)</span>
-            <div id="sunsettimeNinjas"></div>
+            <div id="sunsettimeNinjas">No data</div>
         </div>
     </div>
 </div>
@@ -246,17 +246,45 @@
                     </div>
                 </div>
             </div>
-            <a class="hourly-btn"><i class="fas fa-chart-line"></i> See more API details</a>
+            <label for="css-modal-checkbox-ninjas" class="css-modal-btn"><a class="hourly-btn"><i class="fas fa-chart-line"></i> See more details</a></label>
+            <!-- <label for="css-modal-checkbox-openweather" class="css-modal-btn"><a class="hourly-btn"><i class="fas fa-chart-line"></i> See more details</a></label> -->
         </div>
     </div>
 
-    <input type="checkbox" id="css-modal-checkbox"/>
-    <div class="cmc">
-        <div class="cmt">
-            <p>Detailed weather information will be displayed here</p>
+
+<!-- <p id="locationResultOpenWeather"><i class="fas fa-map-marker-alt"></i> Nizhny Novgorod</p> -->
+
+
+<input type="checkbox" id="css-modal-checkbox-openweather" class="css-modal-input"/>
+<div class="cmc">
+    <div class="cmt">
+        <div class="border-item">
+            <p id="locationResultOpenWeather2"><i class="fas fa-map-marker-alt"></i> Nizhny Novgorod</p>
+            <div class="hourly-containerOW" id="hourly-forecast-containerOW"></div>
         </div>
-        <label for="css-modal-checkbox" class="css-modal-close"></label>
     </div>
+    <label for="css-modal-checkbox-openweather" class="css-modal-close" aria-label="Close modal"></label>
+</div>
+
+    <input type="checkbox" id="css-modal-checkbox"/>
+<div class="cmc">
+    <div class="cmt">
+        <div class="border-item">
+            <p id="locationResultYRNO2"><i class="fas fa-map-marker-alt"></i> Nizhny Novgorod</p>
+            <div class="hourly-container" id="hourly-forecast-container">
+            </div>
+        </div>
+    </div>
+    <label for="css-modal-checkbox" class="css-modal-close"></label>
+</div>
+
+    <input type="checkbox" id="css-modal-checkbox-ninjas" class="css-modal-input"/>
+<div class="css-modal">
+  <div class="css-modal-content">
+    <p>Detailed Ninjas weather data will be displayed here</p>
+  </div>
+  <label for="css-modal-checkbox-ninjas" class="css-modal-close"></label>
+</div>
 
     <footer>
         <div class="footer-content">

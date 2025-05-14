@@ -29,7 +29,9 @@ const getLocation = async () => {
         console.log(lat);
         console.log(lon);
         document.getElementById('locationResultYRNO').textContent = setlocationText;
+        document.getElementById('locationResultYRNO2').textContent = setlocationText;
         document.getElementById('locationResultOpenWeather').textContent = setlocationText;
+        document.getElementById('locationResultOpenWeather2').textContent = setlocationText;
         document.getElementById('locationResultNinjas').textContent = setlocationText;
 
       } else {
@@ -42,6 +44,49 @@ const getLocation = async () => {
     }
     document.getElementById('cityInput').value = '';
 }
+
+
+
+function createHourBlock(hour, cloudFraction) {
+    const hourBlock = document.createElement('div');
+    hourBlock.className = 'hour-block';
+    
+    const hourLabel = document.createElement('div');
+    hourLabel.className = 'hour-label';
+    hourLabel.textContent = `+${hour} hour`;
+    hourBlock.appendChild(hourLabel);
+
+    const weatherInfo = document.createElement('div');
+    weatherInfo.className = 'weather-info';
+    weatherInfo.innerHTML = `
+        <div class="weather-group">
+            <div id="temperature_${hour}"></div>
+            <span class="unit">°C</span>
+        </div>
+        
+        <div class="weather-group">
+            <span class="weather-label">Cloudiness</span>
+            <div id="cloud_area_fraction_${hour}">${cloudFraction}</div>
+            <span class="unit">%</span>
+        </div>
+        
+        <div class="weather-group">
+            <span class="weather-label">Wind speed</span>
+            <div id="wind_speed_${hour}"></div>
+            <span class="unit">m/s</span>
+        </div>
+        
+        <div class="weather-group">
+            <span class="weather-label">Humidity</span>
+            <div id="relative_humidity_${hour}"></div>
+            <span class="unit">%</span>
+        </div>
+    `;
+    
+    hourBlock.appendChild(weatherInfo);
+    return hourBlock;
+}
+
 
 const getForecast = async () => {
     try {
@@ -61,39 +106,6 @@ const getForecast = async () => {
             txtNinjas = "https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?lat=" + lat + "&lon=" + lon;
             txtSunYRNO = "https://api.met.no/weatherapi/sunrise/3.0/sun?lat=" + lat + "&lon=" + lon + "&date=" + formattedDate;
         }
-    //-----------------------------------------пример для сайта
-    //     try {
-    //         txt = "https://api.met.no/YOUR_API_EXAMPLE";
-    //         response = await fetch(txt,
-    //         {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Accept': '*/*',
-    //                 'User-Agent': 'your_project'
-    //             }
-    //         }
-    //     );
-    //     responseYRNO = await fetch(txtYRNO,
-    //         {
-    //             method: 'GET', // получаем данные 
-    //             headers: {
-    //                 'Accept': '*/*', // указываем что принимаем все типы 
-    //                 'User-Agent': 'MyTestApp/0.2' // кто запрашивает
-    //             }
-    //         }
-    //     );
-    //     if (response.ok) {
-    //         json = await response.json();
-
-    //     }
-    //     else {
-    //         console.log("Error retrieving data from YRNO"); 
-    //     }
-    // }
-    //     catch (error) {
-    //     console.error(error);
-    // }
-        //-------------------------------------------------конец примера
 
         // responseNinjas = await fetch(txtNinjas,
         //         {
@@ -131,50 +143,31 @@ const getForecast = async () => {
         //         {
         //         method: 'GET',
         //         headers: {
-        //             'Accept': '*/*',
-        //             'User-Agent': 'MyTestApp/0.2',
         //             'x-rapidapi-key': 'a40bab086cmsh9796a33d6dcbf58p100155jsn3a9797b5b0e1',
-		//             'x-rapidapi-host': 'openweather43.p.rapidapi.com'
+		//             'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
         //             }
         //         }
         //     );
 
 
-        if (responseYRNO.ok && responseSun.ok) { // если HTTP-статус в диапазоне 200-299
+        if (responseYRNO.ok) { // если HTTP-статус в диапазоне 200-299
             json = await responseYRNO.json();//представляем ответ в виде json
-            json2 = await responseSun.json();
             console.log("json here YRNO");
             let num = 0;
             tttYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.air_temperature);
             cloud_area_fractionYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.cloud_area_fraction);
             wind_speedYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.wind_speed);
             relative_humidityYRNO = JSON.stringify(json.properties.timeseries[num].data.instant.details.relative_humidity);
-            sunriseTime = JSON.stringify(json2.properties.sunrise.time);
-            sunsetTime = JSON.stringify(json2.properties.sunset.time);
 
             let temperatureElementYRNO = document.getElementById('temperatureYRNO');
             let cloud_area_fractionElementYRNO = document.getElementById('cloud_area_fractionYRNO');
             let wind_speedElementYRNO = document.getElementById('wind_speedYRNO');
             let relative_humidityElementYRNO = document.getElementById('relative_humidityYRNO');
-            let sunriseTimeElement = document.getElementById('sunrisetimeYRNO');
-            let sunsetTimeElement = document.getElementById('sunsettimeYRNO');
-
-            sunriseDate = new Date(JSON.parse(sunriseTime));
-            sunsetDate = new Date(JSON.parse(sunsetTime));
-            sunriseDate.setUTCHours(sunriseDate.getUTCHours() + 3);
-            sunsetDate.setUTCHours(sunsetDate.getUTCHours() + 3);
-            const options = { hour: 'numeric', minute: 'numeric' };
-            const sunriseTimeMoscow = sunriseDate.toLocaleTimeString('ru-RU', options);
-            const sunsetTimeMoscow = sunsetDate.toLocaleTimeString('ru-RU', options);
-            console.log("json sun here");
-
 
             temperatureElementYRNO.innerHTML = tttYRNO;
             cloud_area_fractionElementYRNO.innerHTML = cloud_area_fractionYRNO;
             wind_speedElementYRNO.innerHTML = wind_speedYRNO;
             relative_humidityElementYRNO.innerHTML = relative_humidityYRNO;
-            sunriseTimeElement.innerHTML = sunriseTimeMoscow;
-            sunsetTimeElement.innerHTML = sunsetTimeMoscow;
 
             // cloud_area_fraction = 22;
             // ttt = -1;
@@ -204,6 +197,23 @@ const getForecast = async () => {
             document.body.style.backgroundRepeat = "no-repeat";
             document.body.style.backgroundAttachment = "fixed";
 
+            const container = document.querySelector('.hourly-container');
+            for (let hour = 0; hour <= 12; hour++) {// создаем блоки для 12 часов
+                const hourBlock = createHourBlock(hour);
+                container.appendChild(hourBlock);
+
+                const data = json.properties.timeseries[hour].data.instant.details;
+                document.getElementById(`temperature_${hour}`).innerHTML = JSON.stringify(json.properties.timeseries[hour].data.instant.details.air_temperature);
+                document.getElementById(`cloud_area_fraction_${hour}`).innerHTML = JSON.stringify(data.cloud_area_fraction);
+                // ttt = JSON.stringify(json.properties.timeseries[hour].data.instant.details.cloud_area_fraction);
+                // console.log(ttt);
+                document.getElementById(`wind_speed_${hour}`).innerHTML = JSON.stringify(data.wind_speed);
+                document.getElementById(`relative_humidity_${hour}`).innerHTML = JSON.stringify(data.relative_humidity);
+
+                // updateWeatherIcon(data.cloud_area_fraction, hour);// обновляем иконку погоды
+            }
+
+
         } 
         else {
             console.log("some err YRNO"); //TODO сделать адекватное сообщение об ошибке
@@ -211,9 +221,9 @@ const getForecast = async () => {
 
 
         if (responseSun.ok) {
-            json = await responseYRNO.json();
-            sunriseTime = JSON.stringify(json2.properties.sunrise.time);
-            sunsetTime = JSON.stringify(json2.properties.sunset.time);
+            json = await responseSun.json();
+            sunriseTime = JSON.stringify(json.properties.sunrise.time);
+            sunsetTime = JSON.stringify(json.properties.sunset.time);
 
             let sunriseTimeElement = document.getElementById('sunrisetimeYRNO');
             let sunsetTimeElement = document.getElementById('sunsettimeYRNO');
@@ -221,7 +231,7 @@ const getForecast = async () => {
             sunriseDate = new Date(JSON.parse(sunriseTime));
             sunsetDate = new Date(JSON.parse(sunsetTime));
             sunriseDate.setUTCHours(sunriseDate.getUTCHours() + 3);
-            sunsetDate.setUTCHours(sunsetDate.getUTCHours() + 3);
+            sunsetDate.setUTCHours(sunsetDate.getUTCHours());
             const options = { hour: 'numeric', minute: 'numeric' };
             const sunriseTimeMoscow = sunriseDate.toLocaleTimeString('ru-RU', options);
             const sunsetTimeMoscow = sunsetDate.toLocaleTimeString('ru-RU', options);
@@ -245,6 +255,7 @@ const getForecast = async () => {
         //     relative_humidityNinjas = JSON.stringify(json.humidity);
         //     sunriseNinjas = JSON.stringify(json.sunrise);
         //     sunsetNinjas = JSON.stringify(json.sunset);
+        //     console.log(sunsetNinjas);
 
         //     let temperatureElementNinjas = document.getElementById('temperatureNinjas');
         //     let cloud_area_fractionElementNinjas = document.getElementById('cloud_area_fractionNinjas');
@@ -259,11 +270,11 @@ const getForecast = async () => {
         //     relative_humidityElementNinjas.innerHTML = relative_humidityNinjas;
 
         //     sunriseNinjas = new Date(sunriseNinjas * 1000);
+        //     sunsetNinjas = new Date(sunsetNinjas * 1000);
         //     const moscowOffset = 3 * 60 * 60 * 1000;
         //     const sunriseMoscow = new Date(sunriseNinjas.getTime() + moscowOffset);
+        //     const sunsetMoscow = new Date(sunsetNinjas.getTime());
         //     const sunriseFormatted = sunriseMoscow.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: 'numeric' });
-        //     sunsetNinjas = new Date(sunsetNinjas * 1000);
-        //     const sunsetMoscow = new Date(sunsetNinjas.getTime() + moscowOffset);
         //     const sunsetFormatted = sunsetMoscow.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: 'numeric' });
 
         //     sunriseElementNinjas.innerHTML = sunriseFormatted;
@@ -290,46 +301,75 @@ const getForecast = async () => {
         // }
 
 
-        // if (responseOpenWeather.ok) {
-        //     json = await responseOpenWeather.json();
-        //     console.log("json here OpenWeather");
-        //     tttOpenWeather = JSON.stringify(json.main.temp);
-        //     cloud_area_fractionOpenWeather = JSON.stringify(json.clouds.all);
-        //     wind_speedOpenWeather = JSON.stringify(json.wind.speed);
-        //     relative_humidityOpenWeather = JSON.stringify(json.main.humidity);
+    //     if (responseOpenWeather.ok) {
+    //         json = await responseOpenWeather.json();
+    //         console.log("json here OpenWeather");
+    //         tttOpenWeather = JSON.stringify(json.list[0].main.temp);
+    //         cloud_area_fractionOpenWeather = JSON.stringify(json.list[0].clouds.all);
+    //         wind_speedOpenWeather = JSON.stringify(json.list[0].wind.speed);
+    //         relative_humidityOpenWeather = JSON.stringify(json.list[0].main.humidity);
+    //         sunriseOpenWeather = JSON.stringify(json.city.sunrise);
+    //         sunsetOpenWeather = JSON.stringify(json.city.sunset);
             
-        //     let temperatureElementOpenWeather = document.getElementById('temperatureOpenWeather');
-        //     let cloud_area_fractionElementOpenWeather = document.getElementById('cloud_area_fractionOpenWeather');
-        //     let wind_speedElementOpenWeather = document.getElementById('wind_speedOpenWeather');
-        //     let relative_humidityElementOpenWeather = document.getElementById('relative_humidityOpenWeather');
+    //         let temperatureElementOpenWeather = document.getElementById('temperatureOpenWeather');
+    //         let cloud_area_fractionElementOpenWeather = document.getElementById('cloud_area_fractionOpenWeather');
+    //         let wind_speedElementOpenWeather = document.getElementById('wind_speedOpenWeather');
+    //         let relative_humidityElementOpenWeather = document.getElementById('relative_humidityOpenWeather');
+    //         let sunriseElementOpenWeather = document.getElementById('sunrisetimeOpenWeather');
+    //         let sunsetElementOpenWeather = document.getElementById('sunsettimeOpenWeather');
 
-        //     tttOpenWeather = tttOpenWeather - 273;
-        //     temperatureElementOpenWeather.innerHTML = tttOpenWeather.slice(0, 5);
-        //     cloud_area_fractionElementOpenWeather.innerHTML = cloud_area_fractionOpenWeather;
-        //     wind_speedElementOpenWeather.innerHTML = wind_speedOpenWeather;
-        //     relative_humidityElementOpenWeather.innerHTML = relative_humidityOpenWeather;
+    //         sunriseOpenWeather = new Date(sunriseOpenWeather * 1000);
+    //         sunsetOpenWeather = new Date(sunsetOpenWeather * 1000);
+    //         const moscowOffset = 3 * 60 * 60 * 1000;
+    //         const sunriseMoscow = new Date(sunriseOpenWeather.getTime() + moscowOffset);
+    //         const sunsetMoscow = new Date(sunsetOpenWeather.getTime());
+    //         const sunriseFormatted = sunriseMoscow.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: 'numeric' });
+    //         const sunsetFormatted = sunsetMoscow.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: 'numeric' });
 
-        //     var weatherIconOpenWeather = document.getElementById("WeatherIconOpenWeather");
+    //         tttOpenWeather = tttOpenWeather - 273;
+    //         tttOpenWeather = tttOpenWeather.toFixed(2);
+    //         temperatureElementOpenWeather.innerHTML = tttOpenWeather;
+    //         cloud_area_fractionElementOpenWeather.innerHTML = cloud_area_fractionOpenWeather;
+    //         wind_speedElementOpenWeather.innerHTML = wind_speedOpenWeather;
+    //         relative_humidityElementOpenWeather.innerHTML = relative_humidityOpenWeather;
+    //         sunriseElementOpenWeather.innerHTML = sunriseFormatted;
+    //         sunsetElementOpenWeather.innerHTML = sunsetFormatted;
 
-        //     if (cloud_area_fractionOpenWeather < 20) {
-        //         weatherIconOpenWeather.src = "img1/climacons-master/SVG/Sun.svg";
-        //     }
-        //     if (cloud_area_fractionOpenWeather > 20 && cloud_area_fractionOpenWeather < 50) {
-        //         weatherIconOpenWeather.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-        //     }
-        //     if (cloud_area_fractionOpenWeather > 50 && cloud_area_fractionOpenWeather < 80) {
-        //         weatherIconOpenWeather.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-        //     }
-        //     if (cloud_area_fractionOpenWeather > 80 ) {
-        //         weatherIconOpenWeather.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
-        //     }
-        // } 
-        // else {
-        //     throw new Error(`HTTP error OpenWeather! Status: ${responseOpenWeather.status}`);
-        //     // document.getElementById('locationResultOpenWeather').textContent = "Sorry, the forecast is currently unavailable, the number of requests in the free version has been exceeded";
-        // }
+    //         var weatherIconOpenWeather = document.getElementById("WeatherIconOpenWeather");
 
-    } 
+    //         if (cloud_area_fractionOpenWeather < 20) {
+    //             weatherIconOpenWeather.src = "img1/climacons-master/SVG/Sun.svg";
+    //         }
+    //         if (cloud_area_fractionOpenWeather > 20 && cloud_area_fractionOpenWeather < 50) {
+    //             weatherIconOpenWeather.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
+    //         }
+    //         if (cloud_area_fractionOpenWeather > 50 && cloud_area_fractionOpenWeather < 80) {
+    //             weatherIconOpenWeather.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
+    //         }
+    //         if (cloud_area_fractionOpenWeather > 80 ) {
+    //             weatherIconOpenWeather.src = "img1/climacons-master/SVG/Cloud-Sun.svg";
+    //         }
+
+
+    //         const container = document.querySelector('.hourly-containerOW');
+    //         for (let hour = 0; hour <= 12; hour++) {// создаем блоки для 12 часов
+    //             const hourBlock = createHourBlock(hour);
+    //             container.appendChild(hourBlock);
+
+    //             const data = json.list[hour];
+    //             document.getElementById(`temperature_${hour}`).innerHTML = (JSON.stringify(data.main.temp) - 273).toFixed(2);
+    //             document.getElementById(`cloud_area_fraction_${hour}`).innerHTML = JSON.stringify(data.clouds.all);
+    //             document.getElementById(`wind_speed_${hour}`).innerHTML = JSON.stringify(data.wind_speed);
+    //             document.getElementById(`relative_humidity_${hour}`).innerHTML = JSON.stringify(data.main.humidity);
+
+    //         }
+    //     } 
+    //     else {
+    //         throw new Error(`HTTP error OpenWeather! Status: ${responseOpenWeather.status}`);
+    //         // document.getElementById('locationResultOpenWeather').textContent = "Sorry, the forecast is currently unavailable, the number of requests in the free version has been exceeded";
+    //     }
+
+    // } 
     catch (error) {
         console.error(error);
     } 
