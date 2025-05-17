@@ -87,6 +87,25 @@ function createHourBlock(hour, cloudFraction) {
     return hourBlock;
 }
 
+let isInitializedYRNO = false;
+let isInitializedOW = false;
+function initHourBlocks(container, str) {
+    if (!isInitializedYRNO && str === 'YRNO') {
+        for (let hour = 0; hour <= 12; hour++) {
+            const hourBlock = createHourBlock(hour);
+            container.appendChild(hourBlock);
+        }
+        isInitializedYRNO = true; // устанавливаем флажок что блоки уже созданы
+    }
+    if (!isInitializedOW && str === 'OW') {
+        for (let hour = 0; hour <= 12; hour++) {
+            const hourBlock = createHourBlock(hour);
+            container.appendChild(hourBlock);
+        }
+        isInitializedOW = true; // устанавливаем флажок что блоки уже созданы
+    }
+}
+
 
 const getForecast = async () => {
     try {
@@ -198,9 +217,12 @@ const getForecast = async () => {
             document.body.style.backgroundAttachment = "fixed";
 
             const container = document.querySelector('.hourly-container');
+            let str = 'YRNO';
+            initHourBlocks(container, str);
+
             for (let hour = 0; hour <= 12; hour++) {// создаем блоки для 12 часов
-                const hourBlock = createHourBlock(hour);
-                container.appendChild(hourBlock);
+                // const hourBlock = createHourBlock(hour);
+                // container.appendChild(hourBlock);
 
                 const data = json.properties.timeseries[hour].data.instant.details;
                 document.getElementById(`temperature_${hour}`).innerHTML = JSON.stringify(json.properties.timeseries[hour].data.instant.details.air_temperature);
@@ -210,7 +232,6 @@ const getForecast = async () => {
                 document.getElementById(`wind_speed_${hour}`).innerHTML = JSON.stringify(data.wind_speed);
                 document.getElementById(`relative_humidity_${hour}`).innerHTML = JSON.stringify(data.relative_humidity);
 
-                // updateWeatherIcon(data.cloud_area_fraction, hour);// обновляем иконку погоды
             }
 
 
@@ -352,9 +373,10 @@ const getForecast = async () => {
 
 
             const container = document.querySelector('.hourly-containerOW');
+            let str1 = 'OW';
+            initHourBlocks(container, str1);
+
             for (let hour = 0; hour <= 12; hour++) {// создаем блоки для 12 часов
-                const hourBlock = createHourBlock(hour);
-                container.appendChild(hourBlock);
 
                 const data = json.list[hour];
                 document.getElementById(`temperature_${hour}`).innerHTML = (JSON.stringify(data.main.temp) - 273).toFixed(2);
